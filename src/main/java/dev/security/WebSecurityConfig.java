@@ -3,6 +3,7 @@ package dev.security;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -60,6 +61,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+    	
+    	
         http
                 // désactivation CSRF
                 .csrf().disable()
@@ -73,8 +76,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                  // en cas d'erreur, un code 403 est envoyé
                 .exceptionHandling().authenticationEntryPoint((request, response, authException) -> response.setStatus(HttpServletResponse.SC_FORBIDDEN))
                 .and()
+                .authorizeRequests()
                 // toutes les requêtes doivent être authentifiées
-                .authorizeRequests().anyRequest().authenticated()
+                .antMatchers("/h2-console/**").permitAll()
+                .anyRequest().authenticated()
                 .and()
                 // génération d'un formulaire de login
                 // il faut produire une requête avec les caractéristiques suivantes :
@@ -91,6 +96,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureHandler((request, response, exception) -> response.setStatus(HttpServletResponse.SC_BAD_REQUEST))
                 // la requête POST /login n'est pas soumise à authentification
                 .permitAll()
+                
                 .and()
                 // Filtre permettant de récupérer le jeton JWT et transformer son contenu en utilisateur connecté au sens Spring Security
                 .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
@@ -100,6 +106,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // en cas de succès un OK est envoyé (à la place d'une redirection vers /login)
                 .logoutSuccessHandler((req, resp, auth) -> resp.setStatus(HttpServletResponse.SC_OK))
                 // suppression du cookie d'authentification
-                .deleteCookies(TOKEN_COOKIE);
+                .deleteCookies(TOKEN_COOKIE)
+                .and().headers().frameOptions().sameOrigin();
     }
 }
