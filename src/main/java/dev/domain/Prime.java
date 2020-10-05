@@ -1,8 +1,7 @@
 package dev.domain;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
-
+import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,30 +12,29 @@ public class Prime {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer Id;
+	private Integer id;
 	
-	private LocalDateTime dateDebut ;
-	private LocalDateTime dateFin;
+	private LocalDate dateDebut ;
+	private LocalDate dateFin;
 	private String nature ;
 	private BigDecimal montant;
 	
-	
 	public Integer getId() {
-		return Id;
+		return id;
 	}
 	public void setId(Integer id) {
-		Id = id;
+		this.id = id;
 	}
-	public LocalDateTime getDateDebut() {
+	public LocalDate getDateDebut() {
 		return dateDebut;
 	}
-	public void setDateDebut(LocalDateTime dateDebut) {
+	public void setDateDebut(LocalDate dateDebut) {
 		this.dateDebut = dateDebut;
 	}
-	public LocalDateTime getDateFin() {
+	public LocalDate getDateFin() {
 		return dateFin;
 	}
-	public void setDateFin(LocalDateTime dateFin) {
+	public void setDateFin(LocalDate dateFin) {
 		this.dateFin = dateFin;
 	}
 	public String getNature() {
@@ -51,6 +49,9 @@ public class Prime {
 	public void setMontant(BigDecimal montant) {
 		this.montant = montant;
 	}
+	
+	
+	
 	
 	
 
