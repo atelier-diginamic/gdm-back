@@ -149,21 +149,5 @@ public class Mission {
 		this.prime = prime;
 	}
 
-	/**
-	 * 
-	 */
-	public Mission(int id, LocalDate dateDebut, LocalDate dateFin, String nature, String villeDepart,
-			String villeArrivee, String transport, String statut, BigDecimal prime) {
-		super();
-		this.id = id;
-		this.dateDebut = dateDebut;
-		this.dateFin = dateFin;
-		this.nature = nature;
-		this.villeDepart = villeDepart;
-		this.villeArrivee = villeArrivee;
-		this.transport = transport;
-		this.statut = statut;
-		this.prime = prime;
-	}
 
 }
