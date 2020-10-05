@@ -8,8 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
+
 
 @Entity
 public class Nature {
@@ -27,11 +26,8 @@ public class Nature {
 	private BigDecimal plafond;
 	private boolean plafondDepassable;
 	
-	@NotNull
-	@Column(name = "debut_validite")
-	private LocalDate debutValidite;
-	
-	@Column(name = "fin_validite")
+	@Column(nullable = false)
+	private LocalDate debutValidite;	
 	private LocalDate finValidite;
 
 	/**
