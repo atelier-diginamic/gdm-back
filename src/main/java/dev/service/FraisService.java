@@ -16,7 +16,6 @@ public class FraisService {
 	 * @param fraisRepo
 	 */
 	public FraisService(FraisRepository fraisRepository) {
-		super();
 		this.fraisRepository = fraisRepository;
 	}
 	

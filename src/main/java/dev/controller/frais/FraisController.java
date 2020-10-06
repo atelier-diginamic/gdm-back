@@ -21,7 +21,6 @@ public class FraisController {
 	 * @param fraisService
 	 */
 	public FraisController(FraisService fraisService) {
-		super();
 		this.fraisService = fraisService;
 	}
 
