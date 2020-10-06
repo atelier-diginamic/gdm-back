@@ -2,33 +2,43 @@ package dev.domain;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+import javax.persistence.OneToMany;
 
 @Entity
 public class Nature {
-	
-	private String nom;
-	
+
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
+	private String nom;
+
 	private boolean missionFacturee;
+
 	private boolean versementPrime;
+
 	private BigDecimal tjm;
+
 	private BigDecimal pourcentagePrime;
+
 	private BigDecimal plafond;
+
 	private boolean plafondDepassable;
-	
+
 	@Column(nullable = false)
-	private LocalDate debutValidite;	
+	private LocalDate debutValidite;
+
 	private LocalDate finValidite;
+
+	@OneToMany
+	private List<Mission> missions;
 
 	/**
 	 * @return the nom
@@ -169,7 +179,19 @@ public class Nature {
 	public void setFinValidite(LocalDate finValidite) {
 		this.finValidite = finValidite;
 	}
-	
-	
+
+	/**
+	 * @return the missions
+	 */
+	public List<Mission> getMissions() {
+		return missions;
+	}
+
+	/**
+	 * @param missions the missions to set
+	 */
+	public void setMissions(List<Mission> missions) {
+		this.missions = missions;
+	}
 
 }

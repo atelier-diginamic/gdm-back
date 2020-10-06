@@ -14,13 +14,11 @@ public class Frais {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private LocalDate dateDebut;
-	private LocalDate dateFin;
-// class Nature
-	private String nature;
-	private String villeDepart;
-	private String villeArrivee;
-	private String transport;
+
+	private LocalDate date;
+
+	private String natureFrais;
+
 	private BigDecimal montantFrais;
 
 	/**
@@ -38,87 +36,31 @@ public class Frais {
 	}
 
 	/**
-	 * @return the dateDebut
+	 * @return the date
 	 */
-	public LocalDate getDateDebut() {
-		return dateDebut;
+	public LocalDate getDate() {
+		return date;
 	}
 
 	/**
-	 * @param dateDebut the dateDebut to set
+	 * @param date the date to set
 	 */
-	public void setDateDebut(LocalDate dateDebut) {
-		this.dateDebut = dateDebut;
+	public void setDate(LocalDate date) {
+		this.date = date;
 	}
 
 	/**
-	 * @return the dateFin
+	 * @return the natureFrais
 	 */
-	public LocalDate getDateFin() {
-		return dateFin;
+	public String getNatureFrais() {
+		return natureFrais;
 	}
 
 	/**
-	 * @param dateFin the dateFin to set
+	 * @param natureFrais the natureFrais to set
 	 */
-	public void setDateFin(LocalDate dateFin) {
-		this.dateFin = dateFin;
-	}
-
-	/**
-	 * @return the nature
-	 */
-	public String getNature() {
-		return nature;
-	}
-
-	/**
-	 * @param nature the nature to set
-	 */
-	public void setNature(String nature) {
-		this.nature = nature;
-	}
-
-	/**
-	 * @return the villeDepart
-	 */
-	public String getVilleDepart() {
-		return villeDepart;
-	}
-
-	/**
-	 * @param villeDepart the villeDepart to set
-	 */
-	public void setVilleDepart(String villeDepart) {
-		this.villeDepart = villeDepart;
-	}
-
-	/**
-	 * @return the villeArrivee
-	 */
-	public String getVilleArrivee() {
-		return villeArrivee;
-	}
-
-	/**
-	 * @param villeArrivee the villeArrivee to set
-	 */
-	public void setVilleArrivee(String villeArrivee) {
-		this.villeArrivee = villeArrivee;
-	}
-
-	/**
-	 * @return the transport
-	 */
-	public String getTransport() {
-		return transport;
-	}
-
-	/**
-	 * @param transport the transport to set
-	 */
-	public void setTransport(String transport) {
-		this.transport = transport;
+	public void setNatureFrais(String natureFrais) {
+		this.natureFrais = natureFrais;
 	}
 
 	/**

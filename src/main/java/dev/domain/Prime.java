@@ -1,11 +1,12 @@
 package dev.domain;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Prime {
@@ -13,49 +14,40 @@ public class Prime {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
-	private LocalDate dateDebut ;
-	private LocalDate dateFin;
-	private String nature ;
+
+	@OneToOne
+	private Mission mission;
+
 	private BigDecimal montant;
-	
+
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public LocalDate getDateDebut() {
-		return dateDebut;
+
+	/**
+	 * @return the mission
+	 */
+	public Mission getMission() {
+		return mission;
 	}
-	public void setDateDebut(LocalDate dateDebut) {
-		this.dateDebut = dateDebut;
+
+	/**
+	 * @param mission the mission to set
+	 */
+	public void setMission(Mission mission) {
+		this.mission = mission;
 	}
-	public LocalDate getDateFin() {
-		return dateFin;
-	}
-	public void setDateFin(LocalDate dateFin) {
-		this.dateFin = dateFin;
-	}
-	public String getNature() {
-		return nature;
-	}
-	public void setNature(String nature) {
-		this.nature = nature;
-	}
+
 	public BigDecimal getMontant() {
 		return montant;
 	}
+
 	public void setMontant(BigDecimal montant) {
 		this.montant = montant;
 	}
-	
-	
-	
-	
-	
 
-	
-	
-	
 }
