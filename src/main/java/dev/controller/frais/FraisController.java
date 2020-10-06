@@ -38,12 +38,6 @@ public class FraisController {
 		this.fraisService = fraisService;
 		this.missionRepo = missionRepo;
 	}
-
-	// affiche la liste de toutes les notes de frais
-	@GetMapping
-	public List<Frais> listeNotesDeFrais() {
-		return fraisService.getList();
-	}
 	
 
 	// affiche toutes les notes de frais pour une mission (en fonction de son id)
