@@ -1,12 +1,15 @@
 package dev.domain;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Mission {
@@ -14,14 +17,22 @@ public class Mission {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+
 	private LocalDate dateDebut;
+
 	private LocalDate dateFin;
-	private String nature;
-	private String villeDepart; // (champ de saisie avec complétion - proposition API Google)
-	private String villeArrivee; // (champ de saisie avec complétion - proposition API Google)
-	private String transport; // (Avion, Covoiturage, Train, Voiture de service)
-	private String statut; // (INITIALE, EN_ATTENTE_VALIDATION, VALIDEE, REJETEE)
-	private BigDecimal prime;
+
+	private String villeDepart;
+
+	private String villeArrivee;
+
+	private String transport;
+
+	@Enumerated(EnumType.STRING)
+	private Statut statut;
+
+	@OneToMany
+	private List<Frais> frais;
 
 	/**
 	 * @return the id
@@ -63,20 +74,6 @@ public class Mission {
 	 */
 	public void setDateFin(LocalDate dateFin) {
 		this.dateFin = dateFin;
-	}
-
-	/**
-	 * @return the nature
-	 */
-	public String getNature() {
-		return nature;
-	}
-
-	/**
-	 * @param nature the nature to set
-	 */
-	public void setNature(String nature) {
-		this.nature = nature;
 	}
 
 	/**
@@ -124,30 +121,15 @@ public class Mission {
 	/**
 	 * @return the statut
 	 */
-	public String getStatut() {
+	public Statut getStatut() {
 		return statut;
 	}
 
 	/**
 	 * @param statut the statut to set
 	 */
-	public void setStatut(String statut) {
+	public void setStatut(Statut statut) {
 		this.statut = statut;
 	}
-
-	/**
-	 * @return the prime
-	 */
-	public BigDecimal getPrime() {
-		return prime;
-	}
-
-	/**
-	 * @param prime the prime to set
-	 */
-	public void setPrime(BigDecimal prime) {
-		this.prime = prime;
-	}
-
 
 }
