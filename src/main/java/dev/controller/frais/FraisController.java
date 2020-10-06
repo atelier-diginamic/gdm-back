@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 import dev.domain.Frais;
 import dev.service.FraisService;
 
-@CrossOrigin
 @RestController
+@CrossOrigin
 @RequestMapping("frais")
 public class FraisController {
-	
+
 	private FraisService fraisService;
-	
+
 	/**
 	 * @param fraisService
 	 */
@@ -24,12 +24,10 @@ public class FraisController {
 		this.fraisService = fraisService;
 	}
 
-
 	// affiche la liste de toutes les notes de frais
 	@GetMapping
-	public List<Frais> listeNotesDeFrais(){
+	public List<Frais> listeNotesDeFrais() {
 		return fraisService.getList();
 	}
-	
 
 }
