@@ -29,7 +29,7 @@ insert into MISSION_FRAIS (MISSION_ID, FRAIS_ID) values(1,3);
 insert into MISSION_FRAIS (MISSION_ID, FRAIS_ID) values(2,4); 
 insert into MISSION_FRAIS (MISSION_ID, FRAIS_ID) values(2,5); 
 
---compo mission nature
+--compo mission nature...
 insert into NATURE_MISSIONS (NATURE_ID, MISSIONS_ID) values(1,5);
 insert into NATURE_MISSIONS (NATURE_ID, MISSIONS_ID) values(1,2);
 insert into NATURE_MISSIONS (NATURE_ID, MISSIONS_ID) values(1,4);
