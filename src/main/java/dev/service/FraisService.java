@@ -1,5 +1,7 @@
 package dev.service;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -23,5 +25,10 @@ public class FraisService {
 	public List<Frais> getList(){
 		return fraisRepository.findAll();
 	}
+	
+	
+//	public Frais creerFrais(LocalDate date, String natureFrais, BigDecimal montantFrais) {
+//		Frais frais = new Frais(date, natureFrais, montantFrais);
+//	}
 
 }
