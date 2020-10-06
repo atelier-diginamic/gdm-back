@@ -3,15 +3,21 @@ package dev.controller.frais;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import javax.validation.constraints.Positive;
+
 import com.sun.istack.NotNull;
 
-import dev.domain.Nature;
 
 public class FraisRequestDto {
 	
+	// contrainte à faire dans le front ?
+	
 	@NotNull
+	// contrainte à faire dans le front ?
 	private LocalDate date;
+	
 	private String natureFrais;
+	@Positive
 	private BigDecimal montant;
 	/**
 	 * @return the date

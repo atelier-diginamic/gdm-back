@@ -39,19 +39,19 @@ public class FraisController {
 	}
 	
 	
-//	@PostMapping
-//	public ResponseEntity<?> newFrais(@RequestBody @Valid FraisRequestDto fraisRequestDto, BindingResult resValid) {
-//
-//		if (!resValid.hasErrors()) {
-//			Frais frais = fraisService. //creerCollegue(colreq.getNom(), colreq.getPrenoms(),
-//					colreq.getDateNaissance(), colreq.getEmail(), colreq.getPhotoUrl());
-//
-//			return ResponseEntity.ok(collegue);
-//		} else {
-//			return ResponseEntity.badRequest().body("tous les champs sont obligatoires !");
-//		}
-//
-//	}
+	// création d'une nouvelle note de frais
+	// ajouter les contraintes dans le front ?
+	@PostMapping
+	public ResponseEntity<?> newFrais(@RequestBody @Valid FraisRequestDto fraisRequestDto, BindingResult resValid) {
+
+		if (!resValid.hasErrors()) {
+			Frais frais = fraisService.creerFrais(fraisRequestDto.getDate(), fraisRequestDto.getNatureFrais(), fraisRequestDto.getMontant());
+			return ResponseEntity.ok(frais);
+		} else {
+			return ResponseEntity.badRequest().body("Veuillez saisir des champs corrects");
+		}
+
+	}
 	
 
 }
