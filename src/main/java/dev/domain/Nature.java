@@ -32,7 +32,7 @@ public class Nature {
 
 	private boolean plafondDepassable;
 
-	@Column(nullable = false)
+	
 	private LocalDate debutValidite;
 
 	private LocalDate finValidite;

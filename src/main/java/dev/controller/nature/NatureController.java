@@ -1,79 +1,41 @@
 package dev.controller.nature;
-
-import java.time.LocalDate;
-import java.util.Optional;
-
+import java.util.List;
 import javax.validation.Valid;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.controller.collegue.NatureRequestDto;
+import dev.controller.collegue.NatureResponseDto;
 import dev.domain.Nature;
-import dev.repository.NatureRepository;
-import dev.utils.ValidateDate;
+import dev.service.NatureService;
 
-
+@CrossOrigin
 @RestController
 @RequestMapping("natures")
 public class NatureController {
+private NatureService natureService;
+public NatureController(NatureService natureService) {
 
-	@Autowired
-private NatureRepository natureRepository;
+	this.natureService = natureService;
+}
 
-
-
-//cherche toutes les natures
+//affiche la liste de  toutes les natures
 
 @GetMapping 
-public ResponseEntity<?> searchAll() {
-	return ResponseEntity.ok(this.natureRepository.findAll());
+public List<Nature> listNature(){
+	return natureService.getList();
 }
-
-
-
-
-//cherche les natures par nom
-
-@GetMapping("/{nom}")
-public ResponseEntity<?> search (@PathVariable String nom){
-	Optional <Nature> nature = natureRepository.findByNom(nom);
-	
-	if (nature.isPresent()) {
-		return ResponseEntity.ok(nature.get());
-		
-	}else {
-		return ResponseEntity.badRequest().body("Aucune nature trouvée pour le nom "+ nom);
-	}
-}
-
 
 @PostMapping
-public ResponseEntity<?> ajoutNature(@RequestBody @Valid NatureRequestDto dto,BindingResult resultatValidation  ){
-	Nature nature = new Nature ();
+public NatureResponseDto createNewNature(@RequestBody @Valid NatureRequestDto dto) {
+	Nature natureCree = this.natureService.creerNature(dto);
 	
-	
-	//Vérification de la date 
-	if (ValidateDate.validateInputDate(dto.getDateFin())) {
-		nature.setFinValidite(LocalDate.parse(dto.getDateFin()));
-	}else {
-		nature.setFinValidite(LocalDate.MAX);
-	}
-	return null;
-	
-	
-	
+	return new NatureResponseDto(natureCree.getNom());
 }
-
-
-
 
 	
 }

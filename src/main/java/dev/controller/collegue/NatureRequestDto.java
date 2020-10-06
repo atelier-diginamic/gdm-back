@@ -1,99 +1,119 @@
 package dev.controller.collegue;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
+import javax.validation.constraints.Positive;
+
+import com.sun.istack.NotNull;
 
 //classe qui heberge les informations 
 
 public class NatureRequestDto {
 
-	
+	@NotNull
 	private String nom;
-
+	@NotNull
 	private boolean missionFacturee;
-	
+	@NotNull
 	private boolean versementPrime;
-	
-	private String tjm;
-	
-	private String pourcentagePrime;
-	private String dateFin;
-	
+	@Positive
+	private BigDecimal tjm;
+	@Positive
+	private BigDecimal pourcentagePrime;
+	@NotNull
+	private LocalDate finValidite;
+	@NotNull
+	private LocalDate debutValidite;
 	
 	public NatureRequestDto() {
 		super();
 	}
 
-
-	public NatureRequestDto(String nom, boolean missionFacturee, boolean versementPrime, String tjm,
-			String pourcentagePrime, String dateFin) {
+	public NatureRequestDto(String nom, boolean missionFacturee, boolean versementPrime, BigDecimal tjm,
+			BigDecimal pourcentagePrime, LocalDate finValidite, LocalDate debutValidite) {
 		super();
 		this.nom = nom;
 		this.missionFacturee = missionFacturee;
 		this.versementPrime = versementPrime;
 		this.tjm = tjm;
 		this.pourcentagePrime = pourcentagePrime;
-		this.dateFin = dateFin;
+		this.finValidite = finValidite;
+		
 	}
-
 
 	public String getNom() {
 		return nom;
 	}
 
-
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-
 
 	public boolean isMissionFacturee() {
 		return missionFacturee;
 	}
 
-
 	public void setMissionFacturee(boolean missionFacturee) {
 		this.missionFacturee = missionFacturee;
 	}
-
 
 	public boolean isVersementPrime() {
 		return versementPrime;
 	}
 
-
 	public void setVersementPrime(boolean versementPrime) {
 		this.versementPrime = versementPrime;
 	}
 
-
-	public String getTjm() {
+	public BigDecimal getTjm() {
 		return tjm;
 	}
 
-
-	public void setTjm(String tjm) {
+	public void setTjm(BigDecimal tjm) {
 		this.tjm = tjm;
 	}
 
-
-	public String getPourcentagePrime() {
+	public BigDecimal getPourcentagePrime() {
 		return pourcentagePrime;
 	}
 
-
-	public void setPourcentagePrime(String pourcentagePrime) {
+	public void setPourcentagePrime(BigDecimal pourcentagePrime) {
 		this.pourcentagePrime = pourcentagePrime;
 	}
 
-
-	public String getDateFin() {
-		return dateFin;
+	public LocalDate getFinValidite() {
+		return finValidite;
 	}
 
-
-	public void setDateFin(String dateFin) {
-		this.dateFin = dateFin;
+	public void setFinValidite(LocalDate finValidite) {
+		this.finValidite = finValidite;
 	}
+
+	public LocalDate getDebutValidite() {
+		return debutValidite;
+	}
+
+	public void setDebutValidite(LocalDate debutValidite) {
+		this.debutValidite = debutValidite;
+	}
+
+	
+
+
+
+	
+
+	
+
+
+	
+
+	
+
+	
+
+
 	
 	
 	
