@@ -71,4 +71,20 @@ public class Collegue {
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
 	}
+
+	/**
+	 * @return the missions
+	 */
+	public List<Mission> getMissions() {
+		return missions;
+	}
+
+	/**
+	 * @param missions the missions to set
+	 */
+	public void setMissions(List<Mission> missions) {
+		this.missions = missions;
+	}
+	
+	
 }
