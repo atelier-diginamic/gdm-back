@@ -2,11 +2,14 @@
 --insert into collegue (NOM,PRENOM, EMAIL) values ('Admin','DEV','admin@dev.fr');
 --insert into collegue (NOM,PRENOM, EMAIL) values ('User','DEV','user@dev.fr');
 
+--frais
+insert into frais(DATE, MONTANT_FRAIS, NATURE_FRAIS, MISSION_ID) values ('2020-01-02',15,'Hôtel', 1);
+insert into frais(DATE, MONTANT_FRAIS, NATURE_FRAIS, MISSION_ID) values ('2020-01-02',25,'Restaurant', 1);
+insert into frais(DATE, MONTANT_FRAIS, NATURE_FRAIS, MISSION_ID) values ('2020-01-02',10,'Peaje', 1);
+insert into frais(DATE, MONTANT_FRAIS, NATURE_FRAIS, MISSION_ID) values ('2020-01-02',21,'Restaurant', 2);
+insert into frais(DATE, MONTANT_FRAIS, NATURE_FRAIS, MISSION_ID) values ('2020-01-02',22,'Hôtel', 2);
 
---compo 
---insert into ROLE_COLLEGUE (ROLE,COLLEGUE_ID) values ('ROLE_ADMINISTRATEUR',1);
---insert into ROLE_COLLEGUE (ROLE,COLLEGUE_ID) values ('ROLE_UTILISATEUR',1);
---insert into ROLE_COLLEGUE (ROLE,COLLEGUE_ID) values ('ROLE_UTILISATEUR',2);
+
 
 --Natures
 insert into nature(DEBUT_VALIDITE, FIN_VALIDITE, MISSION_FACTUREE, NOM, PLAFOND, PLAFOND_DEPASSABLE, POURCENTAGE_PRIME, TJM, VERSEMENT_PRIME) values ('2020-01-01','2020-01-01',0,'Conseil',10,0,5,5,1);

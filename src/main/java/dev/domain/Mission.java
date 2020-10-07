@@ -30,11 +30,13 @@ public class Mission {
 	@Enumerated(EnumType.STRING)
 	private Statut statut;
 
+
 	@ManyToOne
 	private Nature nature;
 
 	@ManyToOne
 	private Collegue collegue;
+
 
 	/**
 	 * @return the id
@@ -161,5 +163,6 @@ public class Mission {
 	public void setCollegue(Collegue collegue) {
 		this.collegue = collegue;
 	}
+
 
 }
