@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import dev.domain.Collegue;
 import dev.domain.Mission;
+import dev.domain.Statut;
 import dev.repository.CollegueRepo;
 import dev.repository.NatureRepository;
 import dev.service.MissionService;
@@ -63,6 +64,7 @@ public class MissionController {
 		mission.setVilleArrivee(missionRequestDto.getVilleArrivee());
 		mission.setTransport(missionRequestDto.getTransport());
 		mission.setNature(natureRepositorie.findByNom(missionRequestDto.getNomNature()));
+		mission.setStatut(Statut.INITIALE);
 		mission.setCollegue(collegue);
 
 		return new MissionReponseDto(missionService.creerMission(mission));
@@ -73,7 +75,8 @@ public class MissionController {
 
 		Mission mission = missionService.updateCollegue(id, missionRequestDto.getDateDebut(),
 				missionRequestDto.getDateFin(), missionRequestDto.getVilleDepart(), missionRequestDto.getVilleArrivee(),
-				missionRequestDto.getTransport(), natureRepositorie.findByNom(missionRequestDto.getNomNature()));
+				missionRequestDto.getTransport(), natureRepositorie.findByNom(missionRequestDto.getNomNature()),
+				Statut.INITIALE);
 
 		;
 		return new MissionReponseDto(mission);

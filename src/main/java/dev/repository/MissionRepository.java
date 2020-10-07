@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import dev.domain.Mission;
 import dev.domain.Nature;
+import dev.domain.Statut;
 
 public interface MissionRepository extends JpaRepository<Mission, Integer> {
 
@@ -16,8 +17,8 @@ public interface MissionRepository extends JpaRepository<Mission, Integer> {
 	List<Mission> findAllByIdCollegue(Long idCollegue);
 
 	@Modifying
-	@Query("update Mission m set m.dateDebut =?2, m.dateFin=?3, m.villeDepart=?4, m.villeArrivee=?5, m.transport=?6, m.nature=?7 where m.id=?1")
+	@Query("update Mission m set m.dateDebut =?2, m.dateFin=?3, m.villeDepart=?4, m.villeArrivee=?5, m.transport=?6, m.nature=?7, m.statut=?8 where m.id=?1")
 	void update(Integer id, LocalDate dateDebut, LocalDate dateFin, String villeDepart, String villeArrivee,
-			String transport, Nature nature);
+			String transport, Nature nature, Statut Statut);
 
 }

@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import dev.domain.Mission;
 import dev.domain.Nature;
+import dev.domain.Statut;
 import dev.repository.MissionRepository;
 
 @Service
@@ -36,9 +37,9 @@ public class MissionService {
 
 	@Transactional
 	public Mission updateCollegue(Integer id, LocalDate dateDebut, LocalDate dateFin, String villeDepart,
-			String villeArrivee, String transport, Nature findByNom) {
+			String villeArrivee, String transport, Nature findByNom, Statut statut) {
 
-		missionRepossitory.update(id, dateDebut, dateFin, villeDepart, villeArrivee, transport, findByNom);
+		missionRepossitory.update(id, dateDebut, dateFin, villeDepart, villeArrivee, transport, findByNom, statut);
 
 		return missionRepossitory.findById(id)
 				.orElseThrow(() -> new RuntimeException("erreur : actualisation Mission"));

@@ -3,6 +3,7 @@ package dev.controller.mission;
 import java.time.LocalDate;
 
 import dev.domain.Mission;
+import dev.domain.Statut;
 
 public class MissionReponseDto {
 
@@ -20,14 +21,18 @@ public class MissionReponseDto {
 
 	private String transport;
 
+	private Statut statut;
+
 	public MissionReponseDto(Mission mission) {
-		this.id = mission.getId();
-		this.dateDebut = mission.getDateDebut();
-		this.dateFin = mission.getDateFin();
-		this.nomNature = mission.getNature().getNom();
-		this.villeDepart = mission.getVilleDepart();
-		this.villeArrivee = mission.getVilleArrivee();
-		this.transport = mission.getTransport();
+		id = mission.getId();
+		dateDebut = mission.getDateDebut();
+		dateFin = mission.getDateFin();
+		nomNature = mission.getNature().getNom();
+		villeDepart = mission.getVilleDepart();
+		villeArrivee = mission.getVilleArrivee();
+		transport = mission.getTransport();
+		statut = mission.getStatut();
+
 	}
 
 	/**
@@ -126,6 +131,20 @@ public class MissionReponseDto {
 	 */
 	public void setTransport(String transport) {
 		this.transport = transport;
+	}
+
+	/**
+	 * @return the statut
+	 */
+	public Statut getStatut() {
+		return statut;
+	}
+
+	/**
+	 * @param statut the statut to set
+	 */
+	public void setStatut(Statut statut) {
+		this.statut = statut;
 	}
 
 }
