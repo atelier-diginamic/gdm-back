@@ -35,4 +35,16 @@ public class FraisService {
 		return fraisRepository.save(frais);
 	}
 
+	
+	// modification d'une note de frais
+	@Transactional
+	public Frais updateFrais(Integer id, LocalDate date, String natureFrais, BigDecimal montant) {
+		fraisRepository.update(id, date, natureFrais, montant);
+		return fraisRepository.findById(id)
+				.orElseThrow(() -> new RuntimeException("erreur : actualisation Frais"));
+	}
+	
+	
+
+
 }
