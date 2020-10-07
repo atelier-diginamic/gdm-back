@@ -36,4 +36,25 @@ insert into NATURE_MISSIONS (NATURE_ID, MISSIONS_ID) values(1,4);
 insert into NATURE_MISSIONS (NATURE_ID, MISSIONS_ID) values(2,3);
 insert into NATURE_MISSIONS (NATURE_ID, MISSIONS_ID) values(3,1);
 
+--collegues
+insert into collegue (NOM,PRENOM, EMAIL) values ('Admin','DEV','admin@dev.fr');
+insert into collegue (NOM,PRENOM, EMAIL) values ('User','DEV','user@dev.fr');
+
+--compo mission collegue
+insert into COLLEGUE_MISSIONS (COLLEGUE_ID,MISSIONS_ID) values(2,1); 
+insert into COLLEGUE_MISSIONS (COLLEGUE_ID, MISSIONS_ID) values(1,2); 
+insert into COLLEGUE_MISSIONS (COLLEGUE_ID, MISSIONS_ID) values(1,3); 
+insert into COLLEGUE_MISSIONS (COLLEGUE_ID, MISSIONS_ID) values(2,4); 
+insert into COLLEGUE_MISSIONS (COLLEGUE_ID, MISSIONS_ID) values(2,5); 
+
+--compo 
+insert into ROLE_COLLEGUE (ROLE,COLLEGUE_ID) values ('ROLE_ADMINISTRATEUR',1);
+insert into ROLE_COLLEGUE (ROLE,COLLEGUE_ID) values ('ROLE_UTILISATEUR',1);
+insert into ROLE_COLLEGUE (ROLE,COLLEGUE_ID) values ('ROLE_UTILISATEUR',2);
+
+
+
+
+
+
 
