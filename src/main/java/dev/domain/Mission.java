@@ -31,8 +31,8 @@ public class Mission {
 	@Enumerated(EnumType.STRING)
 	private Statut statut;
 
-	@OneToMany
-	private List<Frais> frais;
+//	@OneToMany
+//	private List<Frais> frais;
 
 	/**
 	 * @return the id
@@ -132,18 +132,18 @@ public class Mission {
 		this.statut = statut;
 	}
 
-	/**
-	 * @return the frais
-	 */
-	public List<Frais> getFrais() {
-		return frais;
-	}
-
-	/**
-	 * @param frais the frais to set
-	 */
-	public void setFrais(List<Frais> frais) {
-		this.frais = frais;
-	}
+//	/**
+//	 * @return the frais
+//	 */
+//	public List<Frais> getFrais() {
+//		return frais;
+//	}
+//
+//	/**
+//	 * @param frais the frais to set
+//	 */
+//	public void setFrais(List<Frais> frais) {
+//		this.frais = frais;
+//	}
 
 }

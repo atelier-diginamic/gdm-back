@@ -6,11 +6,11 @@ insert into mission(DATE_DEBUT, DATE_FIN ,STATUT,TRANSPORT ,VILLE_ARRIVEE ,VILLE
 insert into mission(DATE_DEBUT, DATE_FIN ,STATUT ,TRANSPORT ,VILLE_ARRIVEE ,VILLE_DEPART) values ('2020-01-01','2020-01-03','INITIALE','vélo','Montpellier','Caracas');
 
 --frais
-insert into frais(DATE, MONTANT_FRAIS, NATURE_FRAIS) values ('2020-01-02',15,'Hôtel');
-insert into frais(DATE, MONTANT_FRAIS, NATURE_FRAIS) values ('2020-01-02',25,'Restaurant');
-insert into frais(DATE, MONTANT_FRAIS, NATURE_FRAIS) values ('2020-01-02',10,'Peaje');
-insert into frais(DATE, MONTANT_FRAIS, NATURE_FRAIS) values ('2020-01-02',21,'Restaurant');
-insert into frais(DATE, MONTANT_FRAIS, NATURE_FRAIS) values ('2020-01-02',22,'Hôtel');
+insert into frais(DATE, MONTANT_FRAIS, NATURE_FRAIS, MISSION_ID) values ('2020-01-02',15,'Hôtel', 1);
+insert into frais(DATE, MONTANT_FRAIS, NATURE_FRAIS, MISSION_ID) values ('2020-01-02',25,'Restaurant', 1);
+insert into frais(DATE, MONTANT_FRAIS, NATURE_FRAIS, MISSION_ID) values ('2020-01-02',10,'Peaje', 1);
+insert into frais(DATE, MONTANT_FRAIS, NATURE_FRAIS, MISSION_ID) values ('2020-01-02',21,'Restaurant', 2);
+insert into frais(DATE, MONTANT_FRAIS, NATURE_FRAIS, MISSION_ID) values ('2020-01-02',22,'Hôtel', 2);
 
 --Natures
 insert into nature(DEBUT_VALIDITE, FIN_VALIDITE, MISSION_FACTUREE, NOM, PLAFOND, PLAFOND_DEPASSABLE, POURCENTAGE_PRIME, TJM, VERSEMENT_PRIME) values ('2020-01-01','2020-01-01',0,'Conseil',10,0,5,5,1);
@@ -23,11 +23,11 @@ insert into nature(DEBUT_VALIDITE, FIN_VALIDITE, MISSION_FACTUREE, NOM, PLAFOND,
 
 
 --compo mission frais
-insert into MISSION_FRAIS (MISSION_ID, FRAIS_ID) values(1,1); 
-insert into MISSION_FRAIS (MISSION_ID, FRAIS_ID) values(1,2); 
-insert into MISSION_FRAIS (MISSION_ID, FRAIS_ID) values(1,3); 
-insert into MISSION_FRAIS (MISSION_ID, FRAIS_ID) values(2,4); 
-insert into MISSION_FRAIS (MISSION_ID, FRAIS_ID) values(2,5); 
+--insert into MISSION_FRAIS (MISSION_ID, FRAIS_ID) values(1,1); 
+--insert into MISSION_FRAIS (MISSION_ID, FRAIS_ID) values(1,2); 
+--insert into MISSION_FRAIS (MISSION_ID, FRAIS_ID) values(1,3); 
+--insert into MISSION_FRAIS (MISSION_ID, FRAIS_ID) values(2,4); 
+--insert into MISSION_FRAIS (MISSION_ID, FRAIS_ID) values(2,5); 
 
 --compo mission nature...
 insert into NATURE_MISSIONS (NATURE_ID, MISSIONS_ID) values(1,5);
