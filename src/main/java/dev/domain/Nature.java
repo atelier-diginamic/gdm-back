@@ -2,12 +2,15 @@ package dev.domain;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+
+
+import javax.persistence.Column;
+
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 @Entity
 public class Nature {
@@ -34,8 +37,8 @@ public class Nature {
 
 	private LocalDate finValidite;
 
-	@OneToMany
-	private List<Mission> missions;
+//	@OneToMany
+//	private List<Mission> missions;
 
 	/**
 	 * @return the nom
@@ -177,18 +180,18 @@ public class Nature {
 		this.finValidite = finValidite;
 	}
 
-	/**
-	 * @return the missions
-	 */
-	public List<Mission> getMissions() {
-		return missions;
-	}
-
-	/**
-	 * @param missions the missions to set
-	 */
-	public void setMissions(List<Mission> missions) {
-		this.missions = missions;
-	}
+//	/**
+//	 * @return the missions
+//	 */
+//	public List<Mission> getMissions() {
+//		return missions;
+//	}
+//
+//	/**
+//	 * @param missions the missions to set
+//	 */
+//	public void setMissions(List<Mission> missions) {
+//		this.missions = missions;
+//	}
 
 }
