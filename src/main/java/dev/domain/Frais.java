@@ -8,7 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+
 import javax.persistence.OneToMany;
+
+
 
 @Entity
 public class Frais {
@@ -26,6 +29,9 @@ public class Frais {
 	@ManyToOne
 	private Mission mission;
 	
+
+	@ManyToOne
+	private Mission mission;
 
 	/**
 	 * 
@@ -115,5 +121,5 @@ public class Frais {
 		this.mission = mission;
 	}
 
-	
+
 }

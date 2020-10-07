@@ -46,6 +46,12 @@ public class FraisController {
 		return fraisService.getListByMission(idMission);
 
 
+		if (byId.isPresent()) {
+			return ResponseEntity.notFound().build();
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+	}
 
 	// création d'une nouvelle note de frais
 	// ajouter les contraintes dans le front ?

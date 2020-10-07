@@ -1,25 +1,16 @@
-package dev.domain;
+package dev.controller.mission;
 
 import java.time.LocalDate;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import dev.domain.Mission;
 
-@Entity
-public class Mission {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+public class MissionReponseDto {
 
 	private LocalDate dateDebut;
 
 	private LocalDate dateFin;
+
+	private String nomNature;
 
 	private String villeDepart;
 
@@ -27,29 +18,13 @@ public class Mission {
 
 	private String transport;
 
-	@Enumerated(EnumType.STRING)
-	private Statut statut;
-
-
-	@ManyToOne
-	private Nature nature;
-
-	@ManyToOne
-	private Collegue collegue;
-
-
-	/**
-	 * @return the id
-	 */
-	public int getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(int id) {
-		this.id = id;
+	public MissionReponseDto(Mission mission) {
+		this.dateDebut = mission.getDateDebut();
+		this.dateFin = mission.getDateFin();
+		this.nomNature = mission.getNature().getNom();
+		this.villeDepart = mission.getVilleDepart();
+		this.villeArrivee = mission.getVilleArrivee();
+		this.transport = mission.getTransport();
 	}
 
 	/**
@@ -78,6 +53,20 @@ public class Mission {
 	 */
 	public void setDateFin(LocalDate dateFin) {
 		this.dateFin = dateFin;
+	}
+
+	/**
+	 * @return the nomNature
+	 */
+	public String getNomNature() {
+		return nomNature;
+	}
+
+	/**
+	 * @param nomNature the nomNature to set
+	 */
+	public void setNomNature(String nomNature) {
+		this.nomNature = nomNature;
 	}
 
 	/**
@@ -121,48 +110,5 @@ public class Mission {
 	public void setTransport(String transport) {
 		this.transport = transport;
 	}
-
-	/**
-	 * @return the statut
-	 */
-	public Statut getStatut() {
-		return statut;
-	}
-
-	/**
-	 * @param statut the statut to set
-	 */
-	public void setStatut(Statut statut) {
-		this.statut = statut;
-	}
-
-	/**
-	 * @return the nature
-	 */
-	public Nature getNature() {
-		return nature;
-	}
-
-	/**
-	 * @param nature the nature to set
-	 */
-	public void setNature(Nature nature) {
-		this.nature = nature;
-	}
-
-	/**
-	 * @return the collegue
-	 */
-	public Collegue getCollegue() {
-		return collegue;
-	}
-
-	/**
-	 * @param collegue the collegue to set
-	 */
-	public void setCollegue(Collegue collegue) {
-		this.collegue = collegue;
-	}
-
 
 }

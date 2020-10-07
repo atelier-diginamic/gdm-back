@@ -1,9 +1,6 @@
---Missions
-insert into mission(DATE_DEBUT, DATE_FIN ,STATUT ,TRANSPORT ,VILLE_ARRIVEE ,VILLE_DEPART) values ('2020-01-01','2020-01-03','INITIALE','couvaturage','Montpellier','Lille');
-insert into mission(DATE_DEBUT, DATE_FIN ,STATUT ,TRANSPORT ,VILLE_ARRIVEE ,VILLE_DEPART) values ('2020-01-01','2020-01-03','EN_ATTENTE_VALIDATION','train','Montpellier','Barcelone');
-insert into mission(DATE_DEBUT, DATE_FIN ,STATUT ,TRANSPORT ,VILLE_ARRIVEE ,VILLE_DEPART) values ('2020-01-01','2020-01-03','VALIDEE','voiture','Montpellier','Nimes');
-insert into mission(DATE_DEBUT, DATE_FIN ,STATUT,TRANSPORT ,VILLE_ARRIVEE ,VILLE_DEPART) values ('2020-01-01','2020-01-03','REJETEE','vélo','Montpellier','New York');
-insert into mission(DATE_DEBUT, DATE_FIN ,STATUT ,TRANSPORT ,VILLE_ARRIVEE ,VILLE_DEPART) values ('2020-01-01','2020-01-03','INITIALE','vélo','Montpellier','Caracas');
+--collegues
+--insert into collegue (NOM,PRENOM, EMAIL) values ('Admin','DEV','admin@dev.fr');
+--insert into collegue (NOM,PRENOM, EMAIL) values ('User','DEV','user@dev.fr');
 
 --frais
 insert into frais(DATE, MONTANT_FRAIS, NATURE_FRAIS, MISSION_ID) values ('2020-01-02',15,'Hôtel', 1);
@@ -11,6 +8,8 @@ insert into frais(DATE, MONTANT_FRAIS, NATURE_FRAIS, MISSION_ID) values ('2020-0
 insert into frais(DATE, MONTANT_FRAIS, NATURE_FRAIS, MISSION_ID) values ('2020-01-02',10,'Peaje', 1);
 insert into frais(DATE, MONTANT_FRAIS, NATURE_FRAIS, MISSION_ID) values ('2020-01-02',21,'Restaurant', 2);
 insert into frais(DATE, MONTANT_FRAIS, NATURE_FRAIS, MISSION_ID) values ('2020-01-02',22,'Hôtel', 2);
+
+
 
 --Natures
 insert into nature(DEBUT_VALIDITE, FIN_VALIDITE, MISSION_FACTUREE, NOM, PLAFOND, PLAFOND_DEPASSABLE, POURCENTAGE_PRIME, TJM, VERSEMENT_PRIME) values ('2020-01-01','2020-01-01',0,'Conseil',10,0,5,5,1);
@@ -21,36 +20,25 @@ insert into nature(DEBUT_VALIDITE, FIN_VALIDITE, MISSION_FACTUREE, NOM, PLAFOND,
 insert into nature(DEBUT_VALIDITE, FIN_VALIDITE, MISSION_FACTUREE, NOM, PLAFOND, PLAFOND_DEPASSABLE, POURCENTAGE_PRIME, TJM, VERSEMENT_PRIME) values ('2020-01-03','2020-02-01',1,'Fête Anniversaire',10,0,5,5,1);
 insert into nature(DEBUT_VALIDITE, FIN_VALIDITE, MISSION_FACTUREE, NOM, PLAFOND, PLAFOND_DEPASSABLE, POURCENTAGE_PRIME, TJM, VERSEMENT_PRIME) values ('2020-01-03','2020-02-01',1,'Fête Anniversaire',10,0,5,5,1);
 
+--Missions
+insert into mission(DATE_DEBUT, DATE_FIN ,STATUT ,TRANSPORT ,VILLE_ARRIVEE ,VILLE_DEPART, NATURE_ID) values ('2020-01-01','2020-01-03','INITIALE','couvaturage','Montpellier','Lille',1);
+insert into mission(DATE_DEBUT, DATE_FIN ,STATUT ,TRANSPORT ,VILLE_ARRIVEE ,VILLE_DEPART, NATURE_ID) values ('2020-01-01','2020-01-03','EN_ATTENTE_VALIDATION','train','Montpellier','Barcelone',2);
+insert into mission(DATE_DEBUT, DATE_FIN ,STATUT ,TRANSPORT ,VILLE_ARRIVEE ,VILLE_DEPART, NATURE_ID) values ('2020-01-01','2020-01-03','VALIDEE','voiture','Montpellier','Nimes',3);
+insert into mission(DATE_DEBUT, DATE_FIN ,STATUT,TRANSPORT ,VILLE_ARRIVEE ,VILLE_DEPART, NATURE_ID) values ('2020-01-01','2020-01-03','REJETEE','vélo','Montpellier','New York',2);
+insert into mission(DATE_DEBUT, DATE_FIN ,STATUT ,TRANSPORT ,VILLE_ARRIVEE ,VILLE_DEPART, NATURE_ID) values ('2020-01-01','2020-01-03','INITIALE','vélo','Montpellier','Caracas',3);
 
---compo mission frais
---insert into MISSION_FRAIS (MISSION_ID, FRAIS_ID) values(1,1); 
---insert into MISSION_FRAIS (MISSION_ID, FRAIS_ID) values(1,2); 
---insert into MISSION_FRAIS (MISSION_ID, FRAIS_ID) values(1,3); 
---insert into MISSION_FRAIS (MISSION_ID, FRAIS_ID) values(2,4); 
---insert into MISSION_FRAIS (MISSION_ID, FRAIS_ID) values(2,5); 
+--frais
 
---compo mission nature...
-insert into NATURE_MISSIONS (NATURE_ID, MISSIONS_ID) values(1,5);
-insert into NATURE_MISSIONS (NATURE_ID, MISSIONS_ID) values(1,2);
-insert into NATURE_MISSIONS (NATURE_ID, MISSIONS_ID) values(1,4);
-insert into NATURE_MISSIONS (NATURE_ID, MISSIONS_ID) values(2,3);
-insert into NATURE_MISSIONS (NATURE_ID, MISSIONS_ID) values(3,1);
+insert into frais(DATE, MONTANT_FRAIS, NATURE_FRAIS, MISSION_ID) values ('2020-01-02',15,'Hôtel', 1);
+insert into frais(DATE, MONTANT_FRAIS, NATURE_FRAIS, MISSION_ID) values ('2020-01-02',25,'Restaurant', 1);
+insert into frais(DATE, MONTANT_FRAIS, NATURE_FRAIS, MISSION_ID) values ('2020-01-02',10,'Peaje', 1);
+insert into frais(DATE, MONTANT_FRAIS, NATURE_FRAIS, MISSION_ID) values ('2020-01-02',21,'Restaurant', 2);
+insert into frais(DATE, MONTANT_FRAIS, NATURE_FRAIS, MISSION_ID) values ('2020-01-02',22,'Hôtel', 2);
 
---collegues
-insert into collegue (NOM,PRENOM, EMAIL) values ('Admin','DEV','admin@dev.fr');
-insert into collegue (NOM,PRENOM, EMAIL) values ('User','DEV','user@dev.fr');
 
---compo mission collegue
-insert into COLLEGUE_MISSIONS (COLLEGUE_ID,MISSIONS_ID) values(2,1); 
-insert into COLLEGUE_MISSIONS (COLLEGUE_ID, MISSIONS_ID) values(1,2); 
-insert into COLLEGUE_MISSIONS (COLLEGUE_ID, MISSIONS_ID) values(1,3); 
-insert into COLLEGUE_MISSIONS (COLLEGUE_ID, MISSIONS_ID) values(2,4); 
-insert into COLLEGUE_MISSIONS (COLLEGUE_ID, MISSIONS_ID) values(2,5); 
 
---compo 
-insert into ROLE_COLLEGUE (ROLE,COLLEGUE_ID) values ('ROLE_ADMINISTRATEUR',1);
-insert into ROLE_COLLEGUE (ROLE,COLLEGUE_ID) values ('ROLE_UTILISATEUR',1);
-insert into ROLE_COLLEGUE (ROLE,COLLEGUE_ID) values ('ROLE_UTILISATEUR',2);
+
+
 
 
 

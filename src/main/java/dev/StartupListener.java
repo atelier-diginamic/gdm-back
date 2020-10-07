@@ -1,13 +1,16 @@
 package dev;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import dev.domain.Collegue;
+import dev.domain.Role;
+import dev.domain.RoleCollegue;
 import dev.domain.Version;
 import dev.repository.CollegueRepo;
 import dev.repository.VersionRepo;
@@ -31,20 +34,40 @@ public class StartupListener {
 		this.collegueRepo = collegueRepo;
 	}
 
-	@Transactional
 	@EventListener(ContextRefreshedEvent.class)
 	public void onStart() {
 		this.versionRepo.save(new Version(appVersion));
 
 		// Création de deux utilisateurs
 
-		Collegue col1 = collegueRepo.findAll().get(0);
+		Collegue col1 = new Collegue();
+		col1.setNom("Admin");
+		col1.setPrenom("DEV");
+		col1.setEmail("admin@dev.fr");
+		col1.setMotDePasse(passwordEncoder.encode("superpass"));
+		col1.setRoles(Arrays.asList(new RoleCollegue(col1, Role.ROLE_ADMINISTRATEUR),
+				new RoleCollegue(col1, Role.ROLE_UTILISATEUR)));
+		this.collegueRepo.save(col1);
 
-		Collegue col2 = collegueRepo.findAll().get(1);
+		Collegue col2 = new Collegue();
+		col2.setNom("User");
+		col2.setPrenom("DEV");
+		col2.setEmail("user@dev.fr");
+		col2.setMotDePasse(passwordEncoder.encode("superpass"));
+		col2.setRoles(Arrays.asList(new RoleCollegue(col2, Role.ROLE_UTILISATEUR)));
+		this.collegueRepo.save(col2);
 
-		collegueRepo.update(col1.getId(), passwordEncoder.encode("superpass"));
-
-		collegueRepo.update(col2.getId(), passwordEncoder.encode("superpass"));
+//		Collegue col1 = collegueRepo.findAll().get(0);
+//
+//		Collegue col2 = collegueRepo.findAll().get(1);
+//
+//		List<RoleCollegue> asList = Arrays.asList(new RoleCollegue(col2, Role.ROLE_UTILISATEUR));
+//
+//		collegueRepo.update(col1.getId(), passwordEncoder.encode("superpass"), Arrays.asList(
+//				new RoleCollegue(col1, Role.ROLE_ADMINISTRATEUR), new RoleCollegue(col1, Role.ROLE_UTILISATEUR)));
+//
+//		collegueRepo.update(col2.getId(), passwordEncoder.encode("superpass"),
+//				Arrays.asList(new RoleCollegue(col2, Role.ROLE_UTILISATEUR)));
 
 	}
 
