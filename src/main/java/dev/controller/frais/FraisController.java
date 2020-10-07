@@ -16,7 +16,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import dev.controller.mission.MissionReponseDto;
+import dev.controller.mission.MissionRequestDto;
+import dev.domain.Collegue;
 import dev.domain.Frais;
+import dev.domain.Mission;
+import dev.repository.MissionRepository;
 import dev.service.FraisService;
 
 @CrossOrigin
@@ -25,12 +30,14 @@ import dev.service.FraisService;
 public class FraisController {
 
 	private FraisService fraisService;
+	private MissionRepository missionRepository;
 
 	/**
 	 * @param fraisService
 	 */
-	public FraisController(FraisService fraisService) {
+	public FraisController(FraisService fraisService, MissionRepository missionRepository) {
 		this.fraisService = fraisService;
+		this.missionRepository = missionRepository;
 
 	}
 
@@ -43,18 +50,25 @@ public class FraisController {
 
 	// création d'une nouvelle note de frais
 	// ajouter les contraintes dans le front ?
-	@PostMapping
-	public ResponseEntity<?> newFrais(@RequestBody @Valid FraisRequestDto fraisRequestDto, BindingResult resValid) {
+	@PostMapping("{idMission}")
+	public ResponseEntity<?> newFrais(@PathVariable Integer idMission, @RequestBody @Valid FraisRequestDto fraisRequestDto, BindingResult resValid) {
 
+		
 		if (!resValid.hasErrors()) {
+			Mission mission = missionRepository.findById(idMission)
+					.orElseThrow(() -> new RuntimeException("erreur : cette id ne corresponde pas à aucune mission"));
+			
 			Frais frais = fraisService.creerFrais(fraisRequestDto.getDate(), fraisRequestDto.getNatureFrais(),
-					fraisRequestDto.getMontant());
+					fraisRequestDto.getMontant(), mission);
 			return ResponseEntity.ok(frais);
 		} else {
 			return ResponseEntity.badRequest().body("Veuillez saisir des champs corrects");
 		}
 
 	}
+	
+	
+	
 
 	// méthode pour modifier une note de frais
 	@PatchMapping("{id}")
