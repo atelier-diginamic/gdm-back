@@ -6,6 +6,7 @@ import dev.domain.Mission;
 
 public class MissionReponseDto {
 
+	private Integer id;
 	private LocalDate dateDebut;
 
 	private LocalDate dateFin;
@@ -19,12 +20,27 @@ public class MissionReponseDto {
 	private String transport;
 
 	public MissionReponseDto(Mission mission) {
+		this.id = mission.getId();
 		this.dateDebut = mission.getDateDebut();
 		this.dateFin = mission.getDateFin();
 		this.nomNature = mission.getNature().getNom();
 		this.villeDepart = mission.getVilleDepart();
 		this.villeArrivee = mission.getVilleArrivee();
 		this.transport = mission.getTransport();
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Integer getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	/**

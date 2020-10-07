@@ -9,10 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import javax.persistence.OneToMany;
-
-
-
 @Entity
 public class Frais {
 
@@ -25,10 +21,6 @@ public class Frais {
 	private String natureFrais;
 
 	private BigDecimal montantFrais;
-	
-	@ManyToOne
-	private Mission mission;
-	
 
 	@ManyToOne
 	private Mission mission;
@@ -120,6 +112,5 @@ public class Frais {
 	public void setMission(Mission mission) {
 		this.mission = mission;
 	}
-
 
 }

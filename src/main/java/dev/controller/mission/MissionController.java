@@ -1,5 +1,6 @@
 package dev.controller.mission;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -34,9 +35,15 @@ public class MissionController {
 	}
 
 	@GetMapping("{idCollegue}")
-	public List<Mission> listeMissions(@PathVariable Long idCollegue) {
+	public List<MissionReponseDto> listeMissions(@PathVariable Long idCollegue) {
 
-		return missionService.listMissions(idCollegue);
+		List<MissionReponseDto> listReponse = new ArrayList<>();
+
+		for (Mission m : missionService.listMissions(idCollegue)) {
+			listReponse.add(new MissionReponseDto(m));
+		}
+
+		return listReponse;
 
 	}
 

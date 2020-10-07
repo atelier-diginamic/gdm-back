@@ -1,6 +1,6 @@
 package dev.controller.frais;
 
-import java.util.Optional;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -14,14 +14,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.domain.Frais;
-import dev.domain.Mission;
-import dev.repository.MissionRepository;
 import dev.service.FraisService;
-
 
 @CrossOrigin
 @RestController
@@ -29,28 +25,20 @@ import dev.service.FraisService;
 public class FraisController {
 
 	private FraisService fraisService;
-	private MissionRepository missionRepo;
 
 	/**
 	 * @param fraisService
 	 */
-	public FraisController(FraisService fraisService, MissionRepository missionRepo) {
+	public FraisController(FraisService fraisService) {
 		this.fraisService = fraisService;
-		this.missionRepo = missionRepo;
+
 	}
 
-	
 	// affiche toutes les notes de frais pour une mission (en fonction de son id)
 	@GetMapping("{idMission}")
 	public List<Frais> listeNotesDeFraisParMission(@PathVariable Integer idMission) {
 		return fraisService.getListByMission(idMission);
 
-
-		if (byId.isPresent()) {
-			return ResponseEntity.notFound().build();
-		} else {
-			return ResponseEntity.notFound().build();
-		}
 	}
 
 	// création d'une nouvelle note de frais
@@ -68,40 +56,32 @@ public class FraisController {
 
 	}
 
-	
-	
 	// méthode pour modifier une note de frais
 	@PatchMapping("{id}")
-	public ResponseEntity<?> editUser(@PathVariable Integer id,
-			@RequestBody @Valid FraisRequestDto fraisDto, BindingResult resValid) {
+	public ResponseEntity<?> editUser(@PathVariable Integer id, @RequestBody @Valid FraisRequestDto fraisDto,
+			BindingResult resValid) {
 
 		if (!resValid.hasErrors()) {
-		// update des données en base
-		Frais editFrais = fraisService.updateFrais(id, fraisDto.getDate(), fraisDto.getNatureFrais(),
-				fraisDto.getMontant());
-		
-		// réponse renvoyée : toutes les données sauf l'id
-		FraisResponsePatch editFraisResponse = new FraisResponsePatch();
-		editFraisResponse.setDate(editFrais.getDate());
-		editFraisResponse.setNatureFrais(editFrais.getNatureFrais());
-		editFraisResponse.setMontantFrais(editFrais.getMontantFrais());
-		return ResponseEntity.ok(editFraisResponse);
-		
-		}else {
+			// update des données en base
+			Frais editFrais = fraisService.updateFrais(id, fraisDto.getDate(), fraisDto.getNatureFrais(),
+					fraisDto.getMontant());
+
+			// réponse renvoyée : toutes les données sauf l'id
+			FraisResponsePatch editFraisResponse = new FraisResponsePatch();
+			editFraisResponse.setDate(editFrais.getDate());
+			editFraisResponse.setNatureFrais(editFrais.getNatureFrais());
+			editFraisResponse.setMontantFrais(editFrais.getMontantFrais());
+			return ResponseEntity.ok(editFraisResponse);
+
+		} else {
 			return ResponseEntity.badRequest().body("Veuillez saisir des champs corrects");
 		}
 	}
-	
 
-	
 	@DeleteMapping("{id}")
-	public ResponseEntity<?> supprimerFrais(@PathVariable Integer id){
+	public ResponseEntity<?> supprimerFrais(@PathVariable Integer id) {
 		return ResponseEntity.ok(fraisService.removeFrais(id));
-		
+
 	}
-	
-	
-
-
 
 }
