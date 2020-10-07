@@ -21,4 +21,14 @@ public class MissionService {
 		return missionRepossitory.findAll();
 	}
 
+	public Mission creerMission(Mission mission) {
+
+		return missionRepossitory.save(mission);
+	}
+
+	public List<Mission> listMissions(Long idCollegue) {
+		return missionRepossitory.findAllByIdCollegue(idCollegue);
+
+	}
+
 }

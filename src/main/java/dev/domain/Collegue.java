@@ -1,7 +1,13 @@
 package dev.domain;
 
-import javax.persistence.*;
 import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Collegue {
@@ -20,9 +26,6 @@ public class Collegue {
 
 	@OneToMany(mappedBy = "collegue", cascade = CascadeType.PERSIST)
 	private List<RoleCollegue> roles;
-
-	@OneToMany
-	private List<Mission> missions;
 
 	public Long getId() {
 		return id;
@@ -72,19 +75,4 @@ public class Collegue {
 		this.prenom = prenom;
 	}
 
-	/**
-	 * @return the missions
-	 */
-	public List<Mission> getMissions() {
-		return missions;
-	}
-
-	/**
-	 * @param missions the missions to set
-	 */
-	public void setMissions(List<Mission> missions) {
-		this.missions = missions;
-	}
-	
-	
 }

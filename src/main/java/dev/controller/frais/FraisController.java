@@ -41,7 +41,7 @@ public class FraisController {
 		Optional<Mission> byId = missionRepo.findById(idMission);
 
 		if (byId.isPresent()) {
-			return ResponseEntity.ok(byId.get().getFrais());
+			return ResponseEntity.notFound().build();
 		} else {
 			return ResponseEntity.notFound().build();
 		}
