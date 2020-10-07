@@ -1,5 +1,6 @@
 package dev.domain;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
@@ -27,16 +28,16 @@ public class Mission {
 
 	private String transport;
 
+	private BigDecimal prime;
+
 	@Enumerated(EnumType.STRING)
 	private Statut statut;
-
 
 	@ManyToOne
 	private Nature nature;
 
 	@ManyToOne
 	private Collegue collegue;
-
 
 	/**
 	 * @return the id
@@ -164,5 +165,18 @@ public class Mission {
 		this.collegue = collegue;
 	}
 
+	/**
+	 * @return the prime
+	 */
+	public BigDecimal getPrime() {
+		return prime;
+	}
+
+	/**
+	 * @param prime the prime to set
+	 */
+	public void setPrime(BigDecimal prime) {
+		this.prime = prime;
+	}
 
 }

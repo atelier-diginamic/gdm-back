@@ -1,5 +1,6 @@
 package dev.controller.mission;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import dev.domain.Mission;
@@ -23,6 +24,8 @@ public class MissionReponseDto {
 
 	private Statut statut;
 
+	private BigDecimal prime;
+
 	public MissionReponseDto(Mission mission) {
 		id = mission.getId();
 		dateDebut = mission.getDateDebut();
@@ -32,6 +35,7 @@ public class MissionReponseDto {
 		villeArrivee = mission.getVilleArrivee();
 		transport = mission.getTransport();
 		statut = mission.getStatut();
+		prime = BigDecimal.ZERO;
 
 	}
 
@@ -145,6 +149,20 @@ public class MissionReponseDto {
 	 */
 	public void setStatut(Statut statut) {
 		this.statut = statut;
+	}
+
+	/**
+	 * @return the prime
+	 */
+	public BigDecimal getPrime() {
+		return prime;
+	}
+
+	/**
+	 * @param prime the prime to set
+	 */
+	public void setPrime(BigDecimal prime) {
+		this.prime = prime;
 	}
 
 }

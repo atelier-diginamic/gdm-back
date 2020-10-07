@@ -1,6 +1,8 @@
 package dev.service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -43,6 +45,35 @@ public class MissionService {
 
 		return missionRepossitory.findById(id)
 				.orElseThrow(() -> new RuntimeException("erreur : actualisation Mission"));
+	}
+
+	@Transactional
+	public void traitementNuit() {
+
+		for (Mission m : missionRepossitory.findAll()) {
+
+			if (m.getStatut().equals(Statut.INITIALE)) {
+				missionRepossitory.updateStatut(m.getId(), Statut.EN_ATTENTE_VALIDATION);
+			} 
+			
+			if (true) {
+
+				BigDecimal deduction = BigDecimal.ZERO;
+
+				Period period = Period.between(m.getDateFin(), m.getDateDebut());
+				int diff = period.getDays();
+				BigDecimal joursTravaillés = new BigDecimal(diff);
+				BigDecimal tjm = m.getNature().getTjm();
+				BigDecimal pourcentagePrime = m.getNature().getPourcentagePrime().divide(new BigDecimal("100"));
+
+				// Prime = (nombre de jours travaillés)* TJM * %Prime/100 - déduction
+
+				BigDecimal prime = joursTravaillés.multiply(tjm.multiply(pourcentagePrime).subtract(deduction));
+				missionRepossitory.updatePrime(m.getId(), BigDecimal.TEN);
+
+			}
+		}
+
 	}
 
 }

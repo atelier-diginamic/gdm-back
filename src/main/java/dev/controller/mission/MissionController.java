@@ -83,4 +83,10 @@ public class MissionController {
 
 	}
 
+	@PatchMapping("nuit")
+	public void traitementNuit() {
+		missionService.traitementNuit();
+
+	}
+
 }
