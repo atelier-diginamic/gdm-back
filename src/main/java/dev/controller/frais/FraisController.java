@@ -58,7 +58,7 @@ public class FraisController {
 
 	// méthode pour modifier une note de frais
 	@PatchMapping("{id}")
-	public ResponseEntity<?> editUser(@PathVariable Integer id, @RequestBody @Valid FraisRequestDto fraisDto,
+	public ResponseEntity<?> editFrais(@PathVariable Integer id, @RequestBody @Valid FraisRequestDto fraisDto,
 			BindingResult resValid) {
 
 		if (!resValid.hasErrors()) {
