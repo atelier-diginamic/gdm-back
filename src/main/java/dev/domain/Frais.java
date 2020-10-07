@@ -22,6 +22,24 @@ public class Frais {
 	private BigDecimal montantFrais;
 
 	/**
+	 * 
+	 */
+	public Frais() {
+	}
+
+	/**
+	 * @param id
+	 * @param date
+	 * @param natureFrais
+	 * @param montantFrais
+	 */
+	public Frais(LocalDate date, String natureFrais, BigDecimal montantFrais) {
+		this.date = date;
+		this.natureFrais = natureFrais;
+		this.montantFrais = montantFrais;
+	}
+
+	/**
 	 * @return the id
 	 */
 	public Integer getId() {
