@@ -22,7 +22,7 @@ public class MissionController {
 	}
 
 	@GetMapping
-	public List<Mission> listeNotesDeFrais() {
+	public List<Mission> listeMissions() {
 		return missionService.getList();
 	}
 
