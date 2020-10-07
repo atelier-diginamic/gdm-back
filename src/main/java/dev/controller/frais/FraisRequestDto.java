@@ -19,6 +19,8 @@ public class FraisRequestDto {
 	private String natureFrais;
 	@Positive
 	private BigDecimal montant;
+	
+
 	/**
 	 * @return the date
 	 */
@@ -57,6 +59,7 @@ public class FraisRequestDto {
 	public void setMontant(BigDecimal montant) {
 		this.montant = montant;
 	}
+
 	
 
 }
