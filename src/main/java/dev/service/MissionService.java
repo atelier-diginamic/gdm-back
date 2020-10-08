@@ -61,6 +61,7 @@ public class MissionService {
 			if (m.getDateFin().isBefore(LocalDate.now())) {
 
 				// TODO Calcule de la deduction issue #18
+
 				// déduction = somme des frais - (plafond de frais)*(nombre de jours de la
 				// mission)
 				// le montant de la prime final avec prise en compte de cette déduction est
@@ -78,6 +79,21 @@ public class MissionService {
 
 				missionRepossitory.updatePrime(m.getId(), prime);
 			}
+		}
+
+	}
+
+	public List<Mission> listMissionsManager(Long idManager) {
+
+		return missionRepossitory.findAllByIdManager(idManager, Statut.EN_ATTENTE_VALIDATION);
+	}
+
+	@Transactional
+	public void acceptationMission(int id, boolean valide) {
+		if (valide) {
+			missionRepossitory.updateStatut(id, Statut.VALIDEE);
+		} else {
+			missionRepossitory.updateStatut(id, Statut.REJETEE);
 		}
 
 	}

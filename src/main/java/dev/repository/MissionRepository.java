@@ -32,4 +32,7 @@ public interface MissionRepository extends JpaRepository<Mission, Integer> {
 	@Query("update Mission m set m.prime=?2 where m.id=?1")
 	void updatePrime(int id, BigDecimal prime);
 
+	@Query("select m from Mission m join fetch m.collegue  c inner join  c.manager a where a.id = ?1 and m.statut=?2	")
+	List<Mission> findAllByIdManager(Long idManager, Statut enAttenteValidation);
+
 }
