@@ -35,7 +35,7 @@ public class MissionReponseDto {
 		villeArrivee = mission.getVilleArrivee();
 		transport = mission.getTransport();
 		statut = mission.getStatut();
-		prime = BigDecimal.ZERO;
+		prime = mission.getPrime();
 
 	}
 
