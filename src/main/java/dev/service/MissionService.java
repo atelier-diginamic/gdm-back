@@ -1,6 +1,8 @@
 package dev.service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -43,6 +45,41 @@ public class MissionService {
 
 		return missionRepossitory.findById(id)
 				.orElseThrow(() -> new RuntimeException("erreur : actualisation Mission"));
+	}
+
+	@Transactional
+	public void traitementNuit() {
+
+		for (Mission m : missionRepossitory.findAll()) {
+
+			if (m.getStatut().equals(Statut.INITIALE)) {
+				missionRepossitory.updateStatut(m.getId(), Statut.EN_ATTENTE_VALIDATION);
+
+				// TODO envoie un mail au manager
+			}
+
+			if (m.getDateFin().isBefore(LocalDate.now())) {
+
+				// TODO Calcule de la deduction issue #18
+				// déduction = somme des frais - (plafond de frais)*(nombre de jours de la
+				// mission)
+				// le montant de la prime final avec prise en compte de cette déduction est
+				// calculé par le traitement de nuit.
+				BigDecimal deduction = BigDecimal.ZERO;
+
+				Period period = Period.between(m.getDateDebut(), m.getDateFin());
+				int diff = period.getDays();
+				BigDecimal joursTravaillés = new BigDecimal(diff);
+				BigDecimal tjm = m.getNature().getTjm();
+				BigDecimal pourcentagePrime = m.getNature().getPourcentagePrime().divide(new BigDecimal("100"));
+
+				// Prime = (nombre de jours travaillés)* TJM * %Prime/100 - déduction
+				BigDecimal prime = joursTravaillés.multiply(tjm.multiply(pourcentagePrime).subtract(deduction));
+
+				missionRepossitory.updatePrime(m.getId(), prime);
+			}
+		}
+
 	}
 
 }

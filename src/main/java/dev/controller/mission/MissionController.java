@@ -1,5 +1,6 @@
 package dev.controller.mission;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,6 +67,7 @@ public class MissionController {
 		mission.setNature(natureRepositorie.findByNom(missionRequestDto.getNomNature()));
 		mission.setStatut(Statut.INITIALE);
 		mission.setCollegue(collegue);
+		mission.setPrime(BigDecimal.ZERO);
 
 		return new MissionReponseDto(missionService.creerMission(mission));
 	}
@@ -80,6 +82,12 @@ public class MissionController {
 
 		;
 		return new MissionReponseDto(mission);
+
+	}
+
+	@PatchMapping("nuit")
+	public void traitementNuit() {
+		missionService.traitementNuit();
 
 	}
 
