@@ -1,4 +1,4 @@
-package dev.controller.collegue;
+package dev.controller.nature;
 
 import java.math.BigDecimal;
 

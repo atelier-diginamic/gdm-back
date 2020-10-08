@@ -15,9 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import dev.controller.collegue.NatureRequestDto;
-import dev.controller.collegue.NatureResponseDto;
-import dev.controller.collegue.PatchNatureRequestDto;
 import dev.domain.Nature;
 import dev.service.NatureService;
 
