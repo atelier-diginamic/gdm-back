@@ -7,7 +7,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import dev.controller.collegue.NatureRequestDto;
+import dev.controller.nature.NatureRequestDto;
 import dev.domain.Nature;
 import dev.repository.NatureRepository;
 
