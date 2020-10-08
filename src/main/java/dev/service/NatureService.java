@@ -1,6 +1,7 @@
 package dev.service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,7 +42,7 @@ public class NatureService {
 		nature.setVersementPrime(dto.isVersementPrime());
 		nature.setTjm(dto.getTjm());
 		nature.setPourcentagePrime(dto.getPourcentagePrime());
-		nature.setDebutValidite(dto.getDebutValidite());
+		nature.setDebutValidite(LocalDate.now());
 		nature.setFinValidite(dto.getFinValidite());
 
 		return this.natureRepository.save(nature);
