@@ -91,4 +91,21 @@ public class MissionController {
 
 	}
 
+	@GetMapping("manager/{idManager}")
+	public List<MissionReponseDto> listeMissionsManager(@PathVariable Long idManager) {
+
+		List<MissionReponseDto> listReponse = new ArrayList<>();
+
+		for (Mission m : missionService.listMissionsManager(idManager)) {
+			listReponse.add(new MissionReponseDto(m));
+		}
+		return listReponse;
+	}
+
+	@PatchMapping("manager/{idManager}")
+	public void aceptationMission(@RequestBody MissionPatchDto missionPatchDto) {
+		missionService.acceptationMission(missionPatchDto.getId(), missionPatchDto.isValide());
+
+	}
+
 }

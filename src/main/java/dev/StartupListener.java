@@ -57,17 +57,41 @@ public class StartupListener {
 		col2.setRoles(Arrays.asList(new RoleCollegue(col2, Role.ROLE_UTILISATEUR)));
 		this.collegueRepo.save(col2);
 
-//		Collegue col1 = collegueRepo.findAll().get(0);
-//
-//		Collegue col2 = collegueRepo.findAll().get(1);
-//
-//		List<RoleCollegue> asList = Arrays.asList(new RoleCollegue(col2, Role.ROLE_UTILISATEUR));
-//
-//		collegueRepo.update(col1.getId(), passwordEncoder.encode("superpass"), Arrays.asList(
-//				new RoleCollegue(col1, Role.ROLE_ADMINISTRATEUR), new RoleCollegue(col1, Role.ROLE_UTILISATEUR)));
-//
-//		collegueRepo.update(col2.getId(), passwordEncoder.encode("superpass"),
-//				Arrays.asList(new RoleCollegue(col2, Role.ROLE_UTILISATEUR)));
+		Collegue col3 = new Collegue();
+		col3.setNom("Manag");
+		col3.setPrenom("DEV");
+		col3.setEmail("manag@dev.fr");
+		col3.setMotDePasse(passwordEncoder.encode("superpass"));
+		col3.setRoles(Arrays.asList(new RoleCollegue(col3, Role.ROLE_MANAGER),
+				new RoleCollegue(col3, Role.ROLE_UTILISATEUR)));
+		this.collegueRepo.save(col3);
+
+		Collegue col4 = new Collegue();
+		col4.setNom("Amine");
+		col4.setPrenom("DEV");
+		col4.setEmail("amine@dev.fr");
+		col4.setMotDePasse(passwordEncoder.encode("superpass"));
+		col4.setRoles(Arrays.asList(new RoleCollegue(col4, Role.ROLE_UTILISATEUR)));
+		col4.setManager(col3);
+		this.collegueRepo.save(col4);
+
+		Collegue col5 = new Collegue();
+		col5.setNom("Louise");
+		col5.setPrenom("DEV");
+		col5.setEmail("louise@dev.fr");
+		col5.setMotDePasse(passwordEncoder.encode("superpass"));
+		col5.setRoles(Arrays.asList(new RoleCollegue(col5, Role.ROLE_UTILISATEUR)));
+		col5.setManager(col3);
+		this.collegueRepo.save(col5);
+
+		Collegue col6 = new Collegue();
+		col6.setNom("Helvin");
+		col6.setPrenom("DEV");
+		col6.setEmail("helvin@dev.fr");
+		col6.setMotDePasse(passwordEncoder.encode("superpass"));
+		col6.setRoles(Arrays.asList(new RoleCollegue(col6, Role.ROLE_UTILISATEUR)));
+		col6.setManager(col3);
+		this.collegueRepo.save(col6);
 
 	}
 
