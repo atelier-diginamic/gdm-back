@@ -10,13 +10,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseCookie;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -76,11 +77,13 @@ public class JWTAuthenticationSuccessHandler extends SimpleUrlAuthenticationSucc
                 .signWith(io.jsonwebtoken.SignatureAlgorithm.HS512, SECRET)
                 .compact();
 
-        Cookie authCookie = new Cookie(TOKEN_COOKIE, (jws));
-        authCookie.setHttpOnly(true);
-        authCookie.setMaxAge(EXPIRES_IN * 1000);
-        authCookie.setPath("/");
-        response.addCookie(authCookie);
+        ResponseCookie responseCookie = ResponseCookie.from(TOKEN_COOKIE, jws)
+                .httpOnly(true)
+                .maxAge(EXPIRES_IN * 1000)
+                .path("/")
+                .sameSite("Lax")
+                .build();
+        response.setHeader(HttpHeaders.SET_COOKIE, responseCookie.toString());
         LOG.info("Token JWT généré posé dans un cookie et en entête HTTP");
     }
 }
