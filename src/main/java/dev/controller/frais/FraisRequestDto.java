@@ -13,12 +13,14 @@ public class FraisRequestDto {
 	// contrainte à faire dans le front ?
 	
 	@NotNull
-	// contrainte à faire dans le front ?
 	private LocalDate date;
 	
 	private String natureFrais;
+	
+
 	@Positive
-	private BigDecimal montant;
+	private BigDecimal montantFrais;
+
 	
 
 	/**
@@ -48,16 +50,16 @@ public class FraisRequestDto {
 		this.natureFrais = natureFrais;
 	}
 	/**
-	 * @return the montant
+	 * @return the montantFrais
 	 */
-	public BigDecimal getMontant() {
-		return montant;
+	public BigDecimal getMontantFrais() {
+		return montantFrais;
 	}
 	/**
-	 * @param montant the montant to set
+	 * @param montantFrais the montantFrais to set
 	 */
-	public void setMontant(BigDecimal montant) {
-		this.montant = montant;
+	public void setMontantFrais(BigDecimal montantFrais) {
+		this.montantFrais = montantFrais;
 	}
 
 	

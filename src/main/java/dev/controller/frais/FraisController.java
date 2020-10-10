@@ -56,10 +56,10 @@ public class FraisController {
 		
 		if (!resValid.hasErrors()) {
 			Mission mission = missionRepository.findById(idMission)
-					.orElseThrow(() -> new RuntimeException("erreur : cette id ne corresponde pas à aucune mission"));
+					.orElseThrow(() -> new RuntimeException("erreur : cette id ne correspond à aucune mission"));
 			
 			Frais frais = fraisService.creerFrais(fraisRequestDto.getDate(), fraisRequestDto.getNatureFrais(),
-					fraisRequestDto.getMontant(), mission);
+					fraisRequestDto.getMontantFrais(), mission);
 			return ResponseEntity.ok(frais);
 		} else {
 			return ResponseEntity.badRequest().body("Veuillez saisir des champs corrects");
@@ -78,7 +78,7 @@ public class FraisController {
 		if (!resValid.hasErrors()) {
 			// update des données en base
 			Frais editFrais = fraisService.updateFrais(id, fraisDto.getDate(), fraisDto.getNatureFrais(),
-					fraisDto.getMontant());
+					fraisDto.getMontantFrais());
 
 			// réponse renvoyée : toutes les données sauf l'id
 			FraisResponsePatch editFraisResponse = new FraisResponsePatch();
