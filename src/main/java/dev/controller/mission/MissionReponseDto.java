@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import dev.domain.Mission;
-import dev.domain.Statut;
 
 public class MissionReponseDto {
 
@@ -22,7 +21,7 @@ public class MissionReponseDto {
 
 	private String transport;
 
-	private Statut statut;
+	private String statut;
 
 	private BigDecimal prime;
 
@@ -34,7 +33,7 @@ public class MissionReponseDto {
 		villeDepart = mission.getVilleDepart();
 		villeArrivee = mission.getVilleArrivee();
 		transport = mission.getTransport();
-		statut = mission.getStatut();
+		statut = mission.getStatut().toString();
 		prime = mission.getPrime();
 
 	}
@@ -140,14 +139,14 @@ public class MissionReponseDto {
 	/**
 	 * @return the statut
 	 */
-	public Statut getStatut() {
+	public String getStatut() {
 		return statut;
 	}
 
 	/**
 	 * @param statut the statut to set
 	 */
-	public void setStatut(Statut statut) {
+	public void setStatut(String statut) {
 		this.statut = statut;
 	}
 
