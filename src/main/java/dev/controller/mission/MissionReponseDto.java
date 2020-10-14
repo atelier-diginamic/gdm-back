@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import dev.domain.Mission;
-import dev.domain.Statut;
 
 public class MissionReponseDto {
 

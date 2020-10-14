@@ -110,7 +110,6 @@ public class MissionController {
 		missionService.acceptationMission(missionPatchDto.getId(), missionPatchDto.isValide());
 
 	}
-
 	
 	
 	@GetMapping
@@ -126,5 +125,19 @@ public class MissionController {
 		}
 	
 	}
+	
+//	// récupère une mission par son id
+//	@GetMapping
+//	public ResponseEntity<?> getMission(@RequestParam Integer id) {
+//		Optional<Mission> findById = missionService.getMission(id);
+//		
+//		if(findById.isPresent()) {
+//			return ResponseEntity.ok(findById.get());
+//		}else {
+//			return ResponseEntity.notFound().build();
+//		}
+//	}
+
+
 	
 }

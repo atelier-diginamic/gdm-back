@@ -9,8 +9,7 @@ import com.sun.istack.NotNull;
 
 
 public class FraisRequestDto {
-	
-	// contrainte à faire dans le front ?
+
 	
 	@NotNull
 	private LocalDate date;
@@ -22,7 +21,6 @@ public class FraisRequestDto {
 	private BigDecimal montantFrais;
 
 	
-
 	/**
 	 * @return the date
 	 */

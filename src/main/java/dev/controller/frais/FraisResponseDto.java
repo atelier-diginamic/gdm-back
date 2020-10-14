@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import dev.domain.Frais;
 
 public class FraisResponseDto {
+
 	
 	private Integer id;
 	private LocalDate date;

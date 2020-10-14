@@ -17,9 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import dev.controller.mission.MissionReponseDto;
-import dev.controller.mission.MissionRequestDto;
-import dev.domain.Collegue;
 import dev.domain.Frais;
 import dev.domain.Mission;
 import dev.repository.MissionRepository;
@@ -43,12 +40,7 @@ public class FraisController {
 	}
 
 	// affiche toutes les notes de frais pour une mission (en fonction de son id)
-//	@GetMapping("{idMission}")
-//	public List<Frais> listeNotesDeFraisParMission(@PathVariable Integer idMission) {
-//		return fraisService.getListByMission(idMission);
-//
-//	}
-	
+
 	@GetMapping("{idMission}")
 	public List<FraisResponseDto> listeNotesDeFraisParMission(@PathVariable Integer idMission) {
 		
@@ -60,9 +52,10 @@ public class FraisController {
 		return listResponse;
 
 	}
+	
 
 	// création d'une nouvelle note de frais
-	// ajouter les contraintes dans le front ?
+	
 	@PostMapping("{idMission}")
 	public ResponseEntity<?> newFrais(@PathVariable Integer idMission, @RequestBody @Valid FraisRequestDto fraisRequestDto, BindingResult resValid) {
 		
