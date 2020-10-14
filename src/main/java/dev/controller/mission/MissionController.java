@@ -3,7 +3,9 @@ package dev.controller.mission;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.domain.Collegue;
@@ -107,5 +110,31 @@ public class MissionController {
 		missionService.acceptationMission(missionPatchDto.getId(), missionPatchDto.isValide());
 
 	}
+	
+	@GetMapping
+	public ResponseEntity<?> getMission(@RequestParam Integer id) {
+		
+		Optional<Mission> findById = missionService.getMission(id);
+		if(findById.isPresent()) {
+			MissionReponseDto missionReponse = new MissionReponseDto(findById.get());			
+			return ResponseEntity.ok(missionReponse);
+		}
+		else {
+			return ResponseEntity.notFound().build();
+		}
+	
+	}
+	
+//	// récupère une mission par son id
+//	@GetMapping
+//	public ResponseEntity<?> getMission(@RequestParam Integer id) {
+//		Optional<Mission> findById = missionService.getMission(id);
+//		
+//		if(findById.isPresent()) {
+//			return ResponseEntity.ok(findById.get());
+//		}else {
+//			return ResponseEntity.notFound().build();
+//		}
+//	}
 
 }
