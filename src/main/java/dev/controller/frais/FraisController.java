@@ -1,5 +1,6 @@
 package dev.controller.frais;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -42,9 +43,21 @@ public class FraisController {
 	}
 
 	// affiche toutes les notes de frais pour une mission (en fonction de son id)
+//	@GetMapping("{idMission}")
+//	public List<Frais> listeNotesDeFraisParMission(@PathVariable Integer idMission) {
+//		return fraisService.getListByMission(idMission);
+//
+//	}
+	
 	@GetMapping("{idMission}")
-	public List<Frais> listeNotesDeFraisParMission(@PathVariable Integer idMission) {
-		return fraisService.getListByMission(idMission);
+	public List<FraisResponseDto> listeNotesDeFraisParMission(@PathVariable Integer idMission) {
+		
+		List<FraisResponseDto> listResponse = new ArrayList<>();
+		
+		for(Frais f : fraisService.getListByMission(idMission)) {
+			listResponse.add(new FraisResponseDto(f));
+		}
+		return listResponse;
 
 	}
 
@@ -52,7 +65,6 @@ public class FraisController {
 	// ajouter les contraintes dans le front ?
 	@PostMapping("{idMission}")
 	public ResponseEntity<?> newFrais(@PathVariable Integer idMission, @RequestBody @Valid FraisRequestDto fraisRequestDto, BindingResult resValid) {
-
 		
 		if (!resValid.hasErrors()) {
 			Mission mission = missionRepository.findById(idMission)
@@ -60,7 +72,8 @@ public class FraisController {
 			
 			Frais frais = fraisService.creerFrais(fraisRequestDto.getDate(), fraisRequestDto.getNatureFrais(),
 					fraisRequestDto.getMontantFrais(), mission);
-			return ResponseEntity.ok(frais);
+			FraisResponseDto fraisResponse = new FraisResponseDto(frais);
+			return ResponseEntity.ok(fraisResponse);
 		} else {
 			return ResponseEntity.badRequest().body("Veuillez saisir des champs corrects");
 		}
