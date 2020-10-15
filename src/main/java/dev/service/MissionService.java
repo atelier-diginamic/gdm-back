@@ -115,11 +115,19 @@ public class MissionService {
 		}
 
 	}
-	
-	
+
 	@Transactional
 	public Optional<Mission> getMission(Integer id) {
 		return missionRepossitory.findById(id);
+	}
+
+	public List<Mission> delateMission(Integer id) {
+		Mission mission = missionRepossitory.findById(id)
+				.orElseThrow(() -> new RuntimeException("erreur :suppresion de Mission"));
+
+		missionRepossitory.delete(mission);
+
+		return listMissions(mission.getCollegue().getId());
 	}
 
 }

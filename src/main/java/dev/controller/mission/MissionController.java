@@ -7,9 +7,11 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -136,6 +138,18 @@ public class MissionController {
 		} else {
 			return ResponseEntity.notFound().build();
 		}
+	}
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> effacerNotes(@PathVariable Integer id) {
+
+		List<Mission> isRemoved = missionService.delateMission(id);
+
+		if (isRemoved.isEmpty()) {
+			return new ResponseEntity<>("Acune note ne corresponde pas à l'id : " + id, HttpStatus.NOT_FOUND);
+		}
+
+		return new ResponseEntity<>(isRemoved, HttpStatus.OK);
 
 	}
 
