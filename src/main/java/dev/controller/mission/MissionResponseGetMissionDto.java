@@ -27,6 +27,8 @@ public class MissionResponseGetMissionDto {
 	
 	private BigDecimal plafond;
 	
+	private boolean plafondDepassable;
+	
 	public MissionResponseGetMissionDto(Mission mission) {
 		id = mission.getId();
 		dateDebut = mission.getDateDebut();
@@ -38,6 +40,21 @@ public class MissionResponseGetMissionDto {
 		statut = mission.getStatut().toString();
 		prime = mission.getPrime();
 		plafond = mission.getNature().getPlafond();
+		plafondDepassable = mission.getNature().isPlafondDepassable();
+	}
+
+	/**
+	 * @return the plafondDepassable
+	 */
+	public boolean isPlafondDepassable() {
+		return plafondDepassable;
+	}
+
+	/**
+	 * @param plafondDepassable the plafondDepassable to set
+	 */
+	public void setPlafondDepassable(boolean plafondDepassable) {
+		this.plafondDepassable = plafondDepassable;
 	}
 
 	/**
