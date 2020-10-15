@@ -1,8 +1,6 @@
 package dev;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -11,11 +9,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import dev.domain.Collegue;
+import dev.domain.Mission;
 import dev.domain.Role;
 import dev.domain.RoleCollegue;
 import dev.domain.Version;
 import dev.repository.CollegueRepo;
+import dev.repository.MissionRepository;
 import dev.repository.VersionRepo;
+import dev.service.MissionService;
 
 /**
  * Code de démarrage de l'application. Insertion de jeux de données.
@@ -27,13 +28,18 @@ public class StartupListener {
 	private VersionRepo versionRepo;
 	private PasswordEncoder passwordEncoder;
 	private CollegueRepo collegueRepo;
+	private MissionRepository missionRep;
+	private MissionService missionServ;
 
 	public StartupListener(@Value("${app.version}") String appVersion, VersionRepo versionRepo,
-			PasswordEncoder passwordEncoder, CollegueRepo collegueRepo) {
+			PasswordEncoder passwordEncoder, CollegueRepo collegueRepo, MissionService missionServ,
+			MissionRepository missionRep) {
 		this.appVersion = appVersion;
 		this.versionRepo = versionRepo;
 		this.passwordEncoder = passwordEncoder;
 		this.collegueRepo = collegueRepo;
+		this.missionServ = missionServ;
+		this.missionRep = missionRep;
 	}
 
 	@EventListener(ContextRefreshedEvent.class)
@@ -94,6 +100,11 @@ public class StartupListener {
 		col6.setRoles(Arrays.asList(new RoleCollegue(col6, Role.ROLE_UTILISATEUR)));
 		col6.setManager(col3);
 		this.collegueRepo.save(col6);
+
+		for (Mission m : missionRep.findAll()) {
+			missionServ.updateMission(m.getId(), col6);
+		}
+		;
 
 	}
 
