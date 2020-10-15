@@ -1,13 +1,14 @@
 package dev.service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import dev.controller.collegue.NatureRequestDto;
+import dev.controller.nature.NatureRequestDto;
 import dev.domain.Nature;
 import dev.repository.NatureRepository;
 
@@ -41,7 +42,7 @@ public class NatureService {
 		nature.setVersementPrime(dto.isVersementPrime());
 		nature.setTjm(dto.getTjm());
 		nature.setPourcentagePrime(dto.getPourcentagePrime());
-		nature.setDebutValidite(dto.getDebutValidite());
+		nature.setDebutValidite(LocalDate.now());
 		nature.setFinValidite(dto.getFinValidite());
 
 		return this.natureRepository.save(nature);

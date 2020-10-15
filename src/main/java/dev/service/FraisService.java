@@ -10,6 +10,7 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import dev.domain.Frais;
+import dev.domain.Mission;
 import dev.repository.FraisRepository;
 
 @Service
@@ -37,16 +38,16 @@ public class FraisService {
 	
 	// création d'une nouvelle note de frais
 	@Transactional
-	public Frais creerFrais(LocalDate date, String natureFrais, BigDecimal montantFrais) {
-		Frais frais = new Frais(date, natureFrais, montantFrais);
+	public Frais creerFrais(LocalDate date, String natureFrais, BigDecimal montantFrais, Mission mission) {
+		Frais frais = new Frais(date, natureFrais, montantFrais, mission);
 		return fraisRepository.save(frais);
 	}
 
 	
 	// modification d'une note de frais
 	@Transactional
-	public Frais updateFrais(Integer id, LocalDate date, String natureFrais, BigDecimal montant) {
-		fraisRepository.update(id, date, natureFrais, montant);
+	public Frais updateFrais(Integer id, LocalDate date, String natureFrais, BigDecimal montantFrais) {
+		fraisRepository.update(id, date, natureFrais, montantFrais);
 		return fraisRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("erreur : actualisation Frais"));
 	}

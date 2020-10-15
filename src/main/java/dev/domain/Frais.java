@@ -37,10 +37,11 @@ public class Frais {
 	 * @param natureFrais
 	 * @param montantFrais
 	 */
-	public Frais(LocalDate date, String natureFrais, BigDecimal montantFrais) {
+	public Frais(LocalDate date, String natureFrais, BigDecimal montantFrais, Mission mission) {
 		this.date = date;
 		this.natureFrais = natureFrais;
 		this.montantFrais = montantFrais;
+		this.mission = mission;
 	}
 
 	/**

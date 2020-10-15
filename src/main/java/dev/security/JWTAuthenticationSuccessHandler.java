@@ -22,6 +22,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import dev.controller.vm.CollegueVM;
@@ -77,9 +78,11 @@ public class JWTAuthenticationSuccessHandler extends SimpleUrlAuthenticationSucc
 				.setExpiration(new Date(System.currentTimeMillis() + EXPIRES_IN * 1000))
 				.signWith(io.jsonwebtoken.SignatureAlgorithm.HS512, SECRET).compact();
 
+
 		ResponseCookie responseCookie = ResponseCookie.from(TOKEN_COOKIE, jws).httpOnly(true).maxAge(EXPIRES_IN * 1000)
 				.path("/").sameSite("None").secure(true).build();
 		response.setHeader(HttpHeaders.SET_COOKIE, responseCookie.toString());
 		LOG.info("Token JWT généré posé dans un cookie et en entête HTTP");
 	}
+
 }

@@ -1,5 +1,6 @@
 package dev.controller.frais;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.domain.Frais;
+import dev.domain.Mission;
+import dev.repository.MissionRepository;
 import dev.service.FraisService;
 
 @CrossOrigin
@@ -25,36 +28,53 @@ import dev.service.FraisService;
 public class FraisController {
 
 	private FraisService fraisService;
+	private MissionRepository missionRepository;
 
 	/**
 	 * @param fraisService
 	 */
-	public FraisController(FraisService fraisService) {
+	public FraisController(FraisService fraisService, MissionRepository missionRepository) {
 		this.fraisService = fraisService;
+		this.missionRepository = missionRepository;
 
 	}
 
 	// affiche toutes les notes de frais pour une mission (en fonction de son id)
+
 	@GetMapping("{idMission}")
-	public List<Frais> listeNotesDeFraisParMission(@PathVariable Integer idMission) {
-		return fraisService.getListByMission(idMission);
+	public List<FraisResponseDto> listeNotesDeFraisParMission(@PathVariable Integer idMission) {
+		
+		List<FraisResponseDto> listResponse = new ArrayList<>();
+		
+		for(Frais f : fraisService.getListByMission(idMission)) {
+			listResponse.add(new FraisResponseDto(f));
+		}
+		return listResponse;
 
 	}
+	
 
 	// création d'une nouvelle note de frais
-	// ajouter les contraintes dans le front ?
-	@PostMapping
-	public ResponseEntity<?> newFrais(@RequestBody @Valid FraisRequestDto fraisRequestDto, BindingResult resValid) {
-
+	
+	@PostMapping("{idMission}")
+	public ResponseEntity<?> newFrais(@PathVariable Integer idMission, @RequestBody @Valid FraisRequestDto fraisRequestDto, BindingResult resValid) {
+		
 		if (!resValid.hasErrors()) {
+			Mission mission = missionRepository.findById(idMission)
+					.orElseThrow(() -> new RuntimeException("erreur : cette id ne correspond à aucune mission"));
+			
 			Frais frais = fraisService.creerFrais(fraisRequestDto.getDate(), fraisRequestDto.getNatureFrais(),
-					fraisRequestDto.getMontant());
-			return ResponseEntity.ok(frais);
+					fraisRequestDto.getMontantFrais(), mission);
+			FraisResponseDto fraisResponse = new FraisResponseDto(frais);
+			return ResponseEntity.ok(fraisResponse);
 		} else {
 			return ResponseEntity.badRequest().body("Veuillez saisir des champs corrects");
 		}
 
 	}
+	
+	
+	
 
 	// méthode pour modifier une note de frais
 	@PatchMapping("{id}")
@@ -64,7 +84,7 @@ public class FraisController {
 		if (!resValid.hasErrors()) {
 			// update des données en base
 			Frais editFrais = fraisService.updateFrais(id, fraisDto.getDate(), fraisDto.getNatureFrais(),
-					fraisDto.getMontant());
+					fraisDto.getMontantFrais());
 
 			// réponse renvoyée : toutes les données sauf l'id
 			FraisResponsePatch editFraisResponse = new FraisResponsePatch();
