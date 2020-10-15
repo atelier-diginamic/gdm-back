@@ -4,6 +4,10 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -51,25 +55,30 @@ public class MissionController {
 	}
 
 	@PostMapping("{idCollegue}")
-	public MissionReponseDto demandeMission(@PathVariable Long idCollegue,
-			@RequestBody MissionRequestDto missionRequestDto) {
+	public ResponseEntity<?> demandeMission(@PathVariable Long idCollegue,
+			@RequestBody @Valid MissionRequestDto missionRequestDto, BindingResult resValid) {
 
-		Mission mission = new Mission();
+		if (!resValid.hasErrors()) {
+			Mission mission = new Mission();
 
-		Collegue collegue = collegueRepository.findById(idCollegue)
-				.orElseThrow(() -> new RuntimeException("erreur : cette id ne corresponde pas à aucune mission"));
+			Collegue collegue = collegueRepository.findById(idCollegue)
+					.orElseThrow(() -> new RuntimeException("erreur : cette id ne corresponde pas à aucune mission"));
 
-		mission.setDateDebut(missionRequestDto.getDateDebut());
-		mission.setDateFin(missionRequestDto.getDateFin());
-		mission.setVilleDepart(missionRequestDto.getVilleDepart());
-		mission.setVilleArrivee(missionRequestDto.getVilleArrivee());
-		mission.setTransport(missionRequestDto.getTransport());
-		mission.setNature(natureRepositorie.findByNom(missionRequestDto.getNomNature()));
-		mission.setStatut(Statut.INITIALE);
-		mission.setCollegue(collegue);
-		mission.setPrime(BigDecimal.ZERO);
+			mission.setDateDebut(missionRequestDto.getDateDebut());
+			mission.setDateFin(missionRequestDto.getDateFin());
+			mission.setVilleDepart(missionRequestDto.getVilleDepart());
+			mission.setVilleArrivee(missionRequestDto.getVilleArrivee());
+			mission.setTransport(missionRequestDto.getTransport());
+			mission.setNature(natureRepositorie.findByNom(missionRequestDto.getNomNature()));
+			mission.setStatut(Statut.INITIALE);
+			mission.setCollegue(collegue);
+			mission.setPrime(BigDecimal.ZERO);
 
-		return new MissionReponseDto(missionService.creerMission(mission));
+			return ResponseEntity.ok(new MissionReponseDto(missionService.creerMission(mission)));
+		} else {
+			return ResponseEntity.badRequest().body("Veuillez verifier les dates");
+		}
+
 	}
 
 	@PatchMapping("{id}")
@@ -86,7 +95,7 @@ public class MissionController {
 	}
 
 	@PatchMapping("nuit")
-	public void traitementNuit() {
+	public void traitementNuit() throws Exception {
 		missionService.traitementNuit();
 
 	}
@@ -103,9 +112,15 @@ public class MissionController {
 	}
 
 	@PatchMapping("manager/{idManager}")
-	public void aceptationMission(@RequestBody MissionPatchDto missionPatchDto) {
+	public List<MissionReponseDto> aceptationMission(@RequestBody MissionPatchDto missionPatchDto,
+			@PathVariable Long idManager) {
 		missionService.acceptationMission(missionPatchDto.getId(), missionPatchDto.isValide());
 
-	}
+		List<MissionReponseDto> listReponse = new ArrayList<>();
 
+		for (Mission m : missionService.listMissionsManager(idManager)) {
+			listReponse.add(new MissionReponseDto(m));
+		}
+		return listReponse;
+	}
 }
