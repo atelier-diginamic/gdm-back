@@ -117,7 +117,7 @@ public class MissionController {
 		
 		Optional<Mission> findById = missionService.getMission(id);
 		if(findById.isPresent()) {
-			MissionReponseDto missionReponse = new MissionReponseDto(findById.get());			
+			MissionResponseGetMissionDto missionReponse = new MissionResponseGetMissionDto(findById.get());			
 			return ResponseEntity.ok(missionReponse);
 		}
 		else {
@@ -126,18 +126,6 @@ public class MissionController {
 	
 	}
 	
-//	// récupère une mission par son id
-//	@GetMapping
-//	public ResponseEntity<?> getMission(@RequestParam Integer id) {
-//		Optional<Mission> findById = missionService.getMission(id);
-//		
-//		if(findById.isPresent()) {
-//			return ResponseEntity.ok(findById.get());
-//		}else {
-//			return ResponseEntity.notFound().build();
-//		}
-//	}
-
 
 	
 }
