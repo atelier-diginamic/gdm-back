@@ -131,6 +131,7 @@ public class Nature {
 		this.plafond = plafond;
 	}
 
+
 	/**
 	 * @return the plafondDepassable
 	 */
