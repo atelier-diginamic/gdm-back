@@ -59,18 +59,13 @@ public class MissionService {
 
 	@Transactional
 	public void traitementNuit() throws Exception {
-		emailService.sendEmail("hjwc86@gmail.com");
+
 		for (Mission m : missionRepossitory.findAll()) {
 
 			if (m.getStatut().equals(Statut.INITIALE)) {
 				missionRepossitory.updateStatut(m.getId(), Statut.EN_ATTENTE_VALIDATION);
-
-				// mailSender.sendEmail(m.getCollegue().getManager().getEmail());
-				emailService.sendEmail("hjwc86@gmail.com");
-
+				emailService.sendEmail(m.getCollegue().getNom(), m.getCollegue().getManager().getEmail(), m.toString());
 			}
-
-			System.out.println("Done");
 
 			if (m.getDateFin().isBefore(LocalDate.now())) {
 

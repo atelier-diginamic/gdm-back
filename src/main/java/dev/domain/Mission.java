@@ -39,6 +39,13 @@ public class Mission {
 	@ManyToOne
 	private Collegue collegue;
 
+	@Override
+	public String toString() {
+		return "Mission de  collegue " + collegue.getNom() + " " + collegue.getPrenom() + " du " + dateDebut + " au "
+				+ dateFin + " de " + villeDepart + " à " + villeArrivee + ", en transport=" + transport + " pour : "
+				+ nature.getNom();
+	}
+
 	/**
 	 * @return the id
 	 */
