@@ -33,6 +33,26 @@ public class Nature {
 
 	private LocalDate finValidite;
 
+	
+	
+
+	public Nature() {
+		super();
+	}
+
+	public Nature(String nom, boolean missionFacturee, boolean versementPrime, BigDecimal tjm,
+			BigDecimal pourcentagePrime, BigDecimal plafond, boolean plafondDepassable, LocalDate debutValidite) {
+		super();
+		this.nom = nom;
+		this.missionFacturee = missionFacturee;
+		this.versementPrime = versementPrime;
+		this.tjm = tjm;
+		this.pourcentagePrime = pourcentagePrime;
+		this.plafond = plafond;
+		this.plafondDepassable = plafondDepassable;
+		this.debutValidite = debutValidite;
+	}
+
 	/**
 	 * @return the nom
 	 */

@@ -35,6 +35,9 @@ public interface MissionRepository extends JpaRepository<Mission, Integer> {
 
 	@Query("select m from Mission m join fetch m.collegue  c inner join  c.manager a where a.id = ?1 and m.statut=?2	")
 	List<Mission> findAllByIdManager(Long idManager, Statut enAttenteValidation);
+	
+	
+	List<Mission> findByNatureId (Integer idNature);
 
 	@Modifying
 	@Query("update Mission m set m.collegue=?2 where m.id=?1")

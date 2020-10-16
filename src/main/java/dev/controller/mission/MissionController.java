@@ -44,6 +44,11 @@ public class MissionController {
 		this.collegueRepository = collegueRepository;
 
 	}
+	
+	@GetMapping("/all")
+	public List<Mission> listeMission() {
+		return missionService.getList();
+	}
 
 	@GetMapping("{idCollegue}")
 	public List<MissionReponseDto> listeMissions(@PathVariable Long idCollegue) {
