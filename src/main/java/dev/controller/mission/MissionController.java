@@ -40,7 +40,7 @@ public class MissionController {
 
 	}
 	
-	@GetMapping
+	@GetMapping("/all")
 	public List<Mission> listeMission() {
 		return missionService.getList();
 	}

@@ -102,7 +102,7 @@ public class MissionService {
 
 	public List <Mission> getByNatureId (Integer idNature){
 		return missionRepossitory.findByNatureId(idNature);
-
+	}
 	
 	@Transactional
 	public Optional<Mission> getMission(Integer id) {
