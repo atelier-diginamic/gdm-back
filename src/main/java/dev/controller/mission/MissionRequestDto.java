@@ -2,10 +2,14 @@ package dev.controller.mission;
 
 import java.time.LocalDate;
 
+import javax.validation.constraints.NotNull;
+
 public class MissionRequestDto {
 
+	@NotNull
 	private LocalDate dateDebut;
 
+	@NotNull
 	private LocalDate dateFin;
 
 	private String nomNature;
