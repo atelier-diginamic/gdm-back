@@ -5,8 +5,8 @@ import java.time.LocalDate;
 
 import dev.domain.Mission;
 
-public class MissionReponseDto {
-
+public class MissionResponseGetMissionDto {
+	
 	private Integer id;
 
 	private LocalDate dateDebut;
@@ -24,8 +24,10 @@ public class MissionReponseDto {
 	private String statut;
 
 	private BigDecimal prime;
-
-	public MissionReponseDto(Mission mission) {
+	
+	private BigDecimal plafond;
+	
+	public MissionResponseGetMissionDto(Mission mission) {
 		id = mission.getId();
 		dateDebut = mission.getDateDebut();
 		dateFin = mission.getDateFin();
@@ -35,7 +37,7 @@ public class MissionReponseDto {
 		transport = mission.getTransport();
 		statut = mission.getStatut().toString();
 		prime = mission.getPrime();
-
+		plafond = mission.getNature().getPlafond();
 	}
 
 	/**
@@ -136,8 +138,6 @@ public class MissionReponseDto {
 		this.transport = transport;
 	}
 
-
-
 	/**
 	 * @return the statut
 	 */
@@ -165,5 +165,20 @@ public class MissionReponseDto {
 	public void setPrime(BigDecimal prime) {
 		this.prime = prime;
 	}
+
+	/**
+	 * @return the plafond
+	 */
+	public BigDecimal getPlafond() {
+		return plafond;
+	}
+
+	/**
+	 * @param plafond the plafond to set
+	 */
+	public void setPlafond(BigDecimal plafond) {
+		this.plafond = plafond;
+	}
+	
 
 }

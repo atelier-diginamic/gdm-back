@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -98,8 +99,15 @@ public class MissionService {
 
 	}
 	
+
 	public List <Mission> getByNatureId (Integer idNature){
 		return missionRepossitory.findByNatureId(idNature);
+
+	
+	@Transactional
+	public Optional<Mission> getMission(Integer id) {
+		return missionRepossitory.findById(id);
+
 	}
 
 }
