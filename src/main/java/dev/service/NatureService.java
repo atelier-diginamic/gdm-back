@@ -60,6 +60,11 @@ public class NatureService {
 	@Transactional
 	public Nature update(Integer natureId, PatchNatureRequestDto newNature) {
 		Nature oldNature = getById(natureId).get();
+		if (!oldNature.getNom().equals(newNature.getNom() )) {
+			if (getParNom(newNature.getNom()) != null) {
+				throw new IllegalArgumentException("Nature avec le même nom existante");
+			}
+		}
 		List<Mission> missions = missionService.getByNatureId(natureId);
 		if (missions != null && !missions.isEmpty()) {
 			LocalDate localDate = LocalDate.now().minusDays(1);

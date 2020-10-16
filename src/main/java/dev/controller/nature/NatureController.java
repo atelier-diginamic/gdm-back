@@ -1,6 +1,9 @@
 package dev.controller.nature;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
@@ -64,21 +67,28 @@ public class NatureController {
 //modifier une nature 
 
 	@PatchMapping("/{idNature}")
-	public Nature uptadeNature(@PathVariable Integer idNature, @RequestBody @Valid PatchNatureRequestDto dto,
+	public ResponseEntity<?>uptadeNature(@PathVariable Integer idNature, @RequestBody @Valid PatchNatureRequestDto dto,
 			BindingResult resValid) {
-		return natureService.update(idNature, dto);
+		try {
+			return  ResponseEntity.status(HttpStatus.OK).body(natureService.update(idNature, dto));
+		} catch (IllegalArgumentException e) {
+			return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body("nature qui porte le méme nom existe deja");
+		}
+			
 	}
 
 	// supprimer une nature
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> deleteNature(@PathVariable Integer id) {
+	public ResponseEntity<Map<String, String>> deleteNature(@PathVariable Integer id) {
 		boolean supp = natureService.deleteNature(id);
+		Map<String, String> response = new HashMap<>();
 		if (supp) {
-			return ResponseEntity.status(HttpStatus.OK).body("Nature supprimée");
+			response.put("message", "Nature supprimée");
+			
 		} else {
-			return ResponseEntity.status(HttpStatus.OK).body("date de fin de validité mise à jour");
+			response.put("message", "date de fin de validité mise à jour");
 		}
-
+		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 }
