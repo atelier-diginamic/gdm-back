@@ -68,7 +68,7 @@ public class StartupListener {
 		Collegue col3 = new Collegue();
 		col3.setNom("Manag");
 		col3.setPrenom("DEV");
-		col3.setEmail("manag@dev.fr");
+		col3.setEmail("hjwc86@gmail.com");
 		col3.setMotDePasse(passwordEncoder.encode("superpass"));
 		col3.setRoles(Arrays.asList(new RoleCollegue(col3, Role.ROLE_MANAGER),
 				new RoleCollegue(col3, Role.ROLE_UTILISATEUR)));

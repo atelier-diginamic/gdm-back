@@ -11,13 +11,13 @@ public class EmailService {
 	@Autowired
 	private JavaMailSender javaMailSender;
 
-	public void sendEmail(String email) throws Exception {
+	public void sendEmail(String collegue, String email, String text) throws Exception {
 
 		SimpleMailMessage msg = new SimpleMailMessage();
 		msg.setTo(email);
 
-		msg.setSubject("Testing from Spring Boot");
-		msg.setText("Hello World \n Spring Boot Email");
+		msg.setSubject("Damande de mission de " + collegue);
+		msg.setText(text);
 
 		javaMailSender.send(msg);
 
