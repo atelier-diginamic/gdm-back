@@ -9,6 +9,8 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import dev.domain.Collegue;
+
 import dev.domain.Frais;
 import dev.domain.Mission;
 import dev.domain.Nature;
@@ -129,5 +131,13 @@ public class MissionService {
 
 		return listMissions(mission.getCollegue().getId());
 	}
+
+
+	@Transactional
+	public void updateMission(int i, Collegue col6) {
+		missionRepossitory.updateMission(i, col6);
+
+	}
+
 
 }

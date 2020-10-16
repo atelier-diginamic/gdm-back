@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+import dev.domain.Collegue;
 import dev.domain.Mission;
 import dev.domain.Nature;
 import dev.domain.Statut;
@@ -34,5 +35,9 @@ public interface MissionRepository extends JpaRepository<Mission, Integer> {
 
 	@Query("select m from Mission m join fetch m.collegue  c inner join  c.manager a where a.id = ?1 and m.statut=?2	")
 	List<Mission> findAllByIdManager(Long idManager, Statut enAttenteValidation);
+
+	@Modifying
+	@Query("update Mission m set m.collegue=?2 where m.id=?1")
+	void updateMission(int i, Collegue col6);
 
 }
