@@ -9,18 +9,28 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import dev.domain.Collegue;
+
+import dev.domain.Frais;
 import dev.domain.Mission;
 import dev.domain.Nature;
 import dev.domain.Statut;
+import dev.mailSender.EmailService;
+import dev.repository.FraisRepository;
 import dev.repository.MissionRepository;
 
 @Service
 public class MissionService {
 
 	private MissionRepository missionRepossitory;
+	private FraisRepository fraisRepository;
+	private EmailService emailService;
 
-	public MissionService(MissionRepository missionRepossitory) {
+	public MissionService(MissionRepository missionRepossitory, FraisRepository fraisRepository,
+			EmailService emailService) {
 		this.missionRepossitory = missionRepossitory;
+		this.fraisRepository = fraisRepository;
+		this.emailService = emailService;
 	}
 
 	public List<Mission> getList() {
@@ -49,29 +59,38 @@ public class MissionService {
 	}
 
 	@Transactional
-	public void traitementNuit() {
-
+	public void traitementNuit() throws Exception {
+		emailService.sendEmail("hjwc86@gmail.com");
 		for (Mission m : missionRepossitory.findAll()) {
 
 			if (m.getStatut().equals(Statut.INITIALE)) {
 				missionRepossitory.updateStatut(m.getId(), Statut.EN_ATTENTE_VALIDATION);
 
-				// TODO envoie un mail au manager
+				// mailSender.sendEmail(m.getCollegue().getManager().getEmail());
+				emailService.sendEmail("hjwc86@gmail.com");
+
 			}
+
+			System.out.println("Done");
 
 			if (m.getDateFin().isBefore(LocalDate.now())) {
 
-				// TODO Calcule de la deduction issue #18
+				// Calcule de la deduction issue #18
+
+				Period period = Period.between(m.getDateDebut(), m.getDateFin());
+				int diff = period.getDays();
+				BigDecimal joursTravaillés = new BigDecimal(diff);
+				BigDecimal sommeFrais = BigDecimal.ZERO;
+				for (Frais f : fraisRepository.FindAllByIdMission(m.getId())) {
+					sommeFrais.add(f.getMontantFrais());
+				}
 
 				// déduction = somme des frais - (plafond de frais)*(nombre de jours de la
 				// mission)
 				// le montant de la prime final avec prise en compte de cette déduction est
 				// calculé par le traitement de nuit.
-				BigDecimal deduction = BigDecimal.ZERO;
+				BigDecimal deduction = sommeFrais.subtract(m.getNature().getPlafond().multiply(joursTravaillés));
 
-				Period period = Period.between(m.getDateDebut(), m.getDateFin());
-				int diff = period.getDays();
-				BigDecimal joursTravaillés = new BigDecimal(diff);
 				BigDecimal tjm = m.getNature().getTjm();
 				BigDecimal pourcentagePrime = m.getNature().getPourcentagePrime().divide(new BigDecimal("100"));
 
@@ -98,16 +117,35 @@ public class MissionService {
 		}
 
 	}
+
 	
 
 	public List <Mission> getByNatureId (Integer idNature){
 		return missionRepossitory.findByNatureId(idNature);
 	}
 	
+
 	@Transactional
 	public Optional<Mission> getMission(Integer id) {
 		return missionRepossitory.findById(id);
 
 	}
+
+	public List<Mission> delateMission(Integer id) {
+		Mission mission = missionRepossitory.findById(id)
+				.orElseThrow(() -> new RuntimeException("erreur :suppresion de Mission"));
+
+		missionRepossitory.delete(mission);
+
+		return listMissions(mission.getCollegue().getId());
+	}
+
+
+	@Transactional
+	public void updateMission(int i, Collegue col6) {
+		missionRepossitory.updateMission(i, col6);
+
+	}
+
 
 }
