@@ -3,7 +3,9 @@ package dev.controller.nature;
 import java.util.List;
 import javax.validation.Valid;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import dev.domain.Nature;
 import dev.service.NatureService;
 
@@ -25,41 +26,59 @@ public class NatureController {
 	private NatureService natureService;
 
 	public NatureController(NatureService natureService) {
-
+		super();
 		this.natureService = natureService;
+
 	}
 
-//affiche la liste de  toutes les natures
+//affiche la liste de toutes les natures
 
 	@GetMapping
 	public List<Nature> listNature() {
 		return natureService.getList();
 	}
 
-	
-//ajouter une nature 
-	
+//affiche la nature par son Id	
+	@GetMapping("{id}")
+	public Nature getNatureId(@PathVariable Integer id) {
+		return natureService.getById(id).get();
+	}
+
+//ajouter une nature si elle est existante 
 	@PostMapping
-	public NatureResponseDto createNewNature(@RequestBody @Valid NatureRequestDto dto) {
-		Nature natureCree = this.natureService.creerNature(dto);
-		return new NatureResponseDto(natureCree.getNom());
+	public ResponseEntity<?> createNewNature(@RequestBody @Valid NatureRequestDto dto) {
+
+		Nature existing = natureService.getParNom(dto.getNom());
+
+		if (existing != null) {
+			return ResponseEntity.status(HttpStatus.CONFLICT)
+					.body("Nature existante ! veuillez saisir une nouvelle nature");
+		}
+
+		Nature natureCree = natureService.creer(dto.getNom(), dto.isMissionFacturee(), dto.isVersementPrime(),
+				dto.getTjm(), dto.getPourcentagePrime(), dto.getPlafond(), dto.isPlafondDepassable());
+		return ResponseEntity.status(HttpStatus.OK).body(natureCree);
+
 	}
 
 //modifier une nature 
-	
+
 	@PatchMapping("/{idNature}")
-	public ResponseEntity<?> uptadeNature(@PathVariable Integer idNature, @RequestBody @Valid PatchNatureRequestDto dto,
+	public Nature uptadeNature(@PathVariable Integer idNature, @RequestBody @Valid PatchNatureRequestDto dto,
 			BindingResult resValid) {
-		Nature editNature = natureService.updateNature(idNature, dto.getNom(), dto.isMissionFacturee(),
-				dto.isVersementPrime(), dto.getTjm(), dto.getPourcentagePrime());
-		return ResponseEntity.ok(editNature);
+		return natureService.update(idNature, dto);
 	}
 
-//supprimer une nature	
+	// supprimer une nature
+
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteNature(@PathVariable Integer id) {
-		return ResponseEntity.ok(natureService.deleteNature(id));
+		boolean supp = natureService.deleteNature(id);
+		if (supp) {
+			return ResponseEntity.status(HttpStatus.OK).body("Nature supprimée");
+		} else {
+			return ResponseEntity.status(HttpStatus.OK).body("date de fin de validité mise à jour");
+		}
 
 	}
-
 }
