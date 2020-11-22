@@ -44,13 +44,13 @@ public class MissionController {
 		this.collegueRepository = collegueRepository;
 
 	}
-	
-	@GetMapping("/all")
+
+	@GetMapping("/all") // recupere la liste avec toutes les missions en bdd
 	public List<Mission> listeMission() {
 		return missionService.getList();
 	}
 
-	@GetMapping("{idCollegue}")
+	@GetMapping("{idCollegue}") // recupere tous les missions d'un collegue passé en variable
 	public List<MissionReponseDto> listeMissions(@PathVariable Long idCollegue) {
 
 		List<MissionReponseDto> listReponse = new ArrayList<>();
@@ -58,12 +58,11 @@ public class MissionController {
 		for (Mission m : missionService.listMissions(idCollegue)) {
 			listReponse.add(new MissionReponseDto(m));
 		}
-
 		return listReponse;
 
 	}
 
-	@PostMapping("{idCollegue}")
+	@PostMapping("{idCollegue}") // Création d'un collegue et ajoute en bdd
 	public ResponseEntity<?> demandeMission(@PathVariable Long idCollegue,
 			@RequestBody @Valid MissionRequestDto missionRequestDto, BindingResult resValid) {
 
@@ -79,37 +78,37 @@ public class MissionController {
 			mission.setVilleArrivee(missionRequestDto.getVilleArrivee());
 			mission.setTransport(missionRequestDto.getTransport());
 			mission.setNature(natureRepositorie.findByNom(missionRequestDto.getNomNature()));
-			mission.setStatut(Statut.INITIALE);
+			mission.setStatut(Statut.INITIALE); // tous les mission on un statut "INITIALE" au moment de la création
 			mission.setCollegue(collegue);
 			mission.setPrime(BigDecimal.ZERO);
 
 			return ResponseEntity.ok(new MissionReponseDto(missionService.creerMission(mission)));
 		} else {
-			return ResponseEntity.badRequest().body("Veuillez verifier les dates");
+
+			return ResponseEntity.badRequest().body("Veuillez verifier les donéées");
 		}
 
 	}
 
-	@PatchMapping("{id}")
+	@PatchMapping("{id}") // modification du collegue qui corresponde au id passé en variable
 	public MissionReponseDto editMission(@PathVariable Integer id, @RequestBody MissionRequestDto missionRequestDto) {
 
 		Mission mission = missionService.updateCollegue(id, missionRequestDto.getDateDebut(),
 				missionRequestDto.getDateFin(), missionRequestDto.getVilleDepart(), missionRequestDto.getVilleArrivee(),
 				missionRequestDto.getTransport(), natureRepositorie.findByNom(missionRequestDto.getNomNature()),
-				Statut.INITIALE);
+				Statut.INITIALE); // une fois modifiée la mission passe à statut "INITIALE"
 
-		;
 		return new MissionReponseDto(mission);
 
 	}
 
-	@PatchMapping("nuit")
+	@PatchMapping("nuit") // traitement de nuit
 	public void traitementNuit() throws Exception {
 		missionService.traitementNuit();
 
 	}
 
-	@GetMapping("manager/{idManager}")
+	@GetMapping("manager/{idManager}") // recuper le mission de tous le colaborateurs du manager passé en varaible
 	public List<MissionReponseDto> listeMissionsManager(@PathVariable Long idManager) {
 
 		List<MissionReponseDto> listReponse = new ArrayList<>();
@@ -120,7 +119,7 @@ public class MissionController {
 		return listReponse;
 	}
 
-	@PatchMapping("manager/{idManager}")
+	@PatchMapping("manager/{idManager}") // modification des mission pour changement d'statut
 	public List<MissionReponseDto> aceptationMission(@RequestBody MissionPatchDto missionPatchDto,
 			@PathVariable Long idManager) {
 		missionService.acceptationMission(missionPatchDto.getId(), missionPatchDto.isValide());
@@ -133,7 +132,7 @@ public class MissionController {
 		return listReponse;
 	}
 
-	@GetMapping
+	@GetMapping // recupere la mission qui corresponde à l'id passer dans le corp de la requête
 	public ResponseEntity<?> getMission(@RequestParam Integer id) {
 
 		Optional<Mission> findById = missionService.getMission(id);
@@ -145,7 +144,7 @@ public class MissionController {
 		}
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/{id}") // suppresion de la mission qui corresponde à l'id passe en variable
 	public ResponseEntity<?> effacerNotes(@PathVariable Integer id) {
 
 		List<Mission> isRemoved = missionService.delateMission(id);
